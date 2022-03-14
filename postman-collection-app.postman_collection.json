@@ -6,16 +6,26 @@
 	},
 	"item": [
 		{
-			"name": "Account API",
+			"name": "User API",
 			"item": [
 				{
-					"name": "Create account",
+					"name": "Create user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiJuaWtvbGF5QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0NzIxNjU1OSwiZXhwIjoxNjQ3MjIwMTU5fQ.YuNjZLLHJyEfVDU-JP7cHM2OxisFGCCvx0MnKWZtMtU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 5,\r\n    \"name\": \"Adolf\",\r\n    \"age\": 95,\r\n    \"role\": \"user\"\r\n\r\n}",
+							"raw": "{\r\n  \"id\":4,\r\n  \"email\":\"denis@gmail.com\",\r\n  \"password\":\"12345\",\r\n  \"role\":\"user\",\r\n  \"firstName\":\"Denis\",\r\n  \"lastName\":\"Ivaniv\",\r\n  \"gender\":\"male\",\r\n  \"birth\":\"13.11.1999\",\r\n  \"country\":\"Germany\",\r\n  \"accounts\":[],\r\n  \"transactions\":{\r\n    \"income\":[],\r\n    \"expense\":[]\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -34,82 +44,26 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Create account",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"id\": 5,\r\n    \"name\": \"Adolf\",\r\n    \"age\": 95,\r\n    \"role\": \"user\"\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:3000/users",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"users"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "15"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"f-tyPRdYWP0qbrvYOfGdDyd0Is2aQ\""
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 06 Mar 2022 17:33:58 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "account created"
-						}
-					]
+					"response": []
 				},
 				{
-					"name": "Edit account",
+					"name": "Edit user",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiJuaWtvbGF5QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0NzIxMzkyNSwiZXhwIjoxNjQ3MjE3NTI1fQ.PSBqp-B6QPCmoc8xegEzuIW8V9xQQC3xGd7ihxxs4xA",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Lenin\",\r\n    \"age\": 123,\r\n    \"role\": \"admin\"\r\n}",
+							"raw": "{\r\n  \"id\":232321,\r\n  \"email\":\"hohoho@gmail.com\",\r\n  \"password\":\"11009988\",\r\n  \"role\":\"admin\",\r\n  \"firstName\":\"Adolf\",\r\n  \"lastName\":\"Putin\",\r\n  \"gender\":\"male\",\r\n  \"birth\":\"13.11.1900\",\r\n  \"country\":\"China\",\r\n  \"accounts\":[],\r\n  \"transactions\":{\r\n    \"income\":[],\r\n    \"expense\":[]\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -117,7 +71,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/1",
+							"raw": "http://localhost:3000/users/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -125,75 +79,151 @@
 							"port": "3000",
 							"path": [
 								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiJuaWtvbGF5QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0NzIxNjAwNiwiZXhwIjoxNjQ3MjE5NjA2fQ.GDvO8WWPXcGkkrHDTFnRsWvqhZD5NPV7ljivFIu-zI8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiJuaWtvbGF5QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0NzIxNDg3OCwiZXhwIjoxNjQ3MjE4NDc4fQ.aDJ1TE30IU4nKtf3WLftnhRTQam_RA8kc766QxRjFlw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login API",
+			"item": [
+				{
+					"name": "Login user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"nikolay@gmail.com\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account API",
+			"item": [
+				{
+					"name": "Create account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit account",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/accounts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"accounts",
 								"1"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Edit account",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Lenin\",\r\n    \"age\": 123,\r\n    \"role\": \"admin\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:3000/users/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"users",
-										"1"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "14"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"e-FZXDayGMs+DlN2jm0kViWcf2EBo\""
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 06 Mar 2022 17:33:54 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "account edited"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Read account",
@@ -201,74 +231,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/5",
+							"raw": "http://localhost:3000/accounts/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"users",
-								"5"
+								"accounts",
+								"1"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Read account",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/users/5",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"users",
-										"5"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "58"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"3a-fOkbBPDm0HYwA8tLaT9rLCU62bE\""
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 06 Mar 2022 17:34:37 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"account\": {\n        \"id\": 5,\n        \"name\": \"Adolf\",\n        \"age\": 95,\n        \"role\": \"user\"\n    }\n}"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Delete account",
@@ -276,74 +251,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/5",
+							"raw": "http://localhost:3000/accounts/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"users",
-								"5"
+								"accounts",
+								"1"
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Delete account",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:3000/users/5",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"users",
-										"5"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "15"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"f-JPW+lEXHLYte8j2NHoIw9Dvv2/I\""
-								},
-								{
-									"key": "Date",
-									"value": "Sun, 06 Mar 2022 17:35:24 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "account deleted"
-						}
-					]
+					"response": []
 				}
 			]
 		},
