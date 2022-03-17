@@ -1,4 +1,4 @@
-const {getUserByEmail} = require('./database/users');
+const { getUserByEmail } = require('./database/users');
 
 const adminGuard = (req, res, next) => {
   const user = getUserByEmail(req.user.email);
@@ -8,8 +8,8 @@ const adminGuard = (req, res, next) => {
   } else {
     res.status(403).json({ message: 'Not admin' });
   }
-}
+};
 
 module.exports = {
   adminGuard,
-}
+};

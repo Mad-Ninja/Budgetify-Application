@@ -34,11 +34,8 @@ const auth = passport.authenticate('jwt', { session: false });
 app.use('/users', auth, adminGuard, usersRouter);
 app.use('/login', loginRouter);
 app.use('/accounts', accountsRouter);
-app.use('/income', auth,  incomeRouter);
-app.use('/expense', auth,  expenseRouter);
+app.use('/income', auth, incomeRouter);
+app.use('/expense', auth, expenseRouter);
 app.use('/expenses/categories', auth, expensesCategoriesRouter);
 
-
-
-
-app.listen(PORT)
+app.listen(PORT);
