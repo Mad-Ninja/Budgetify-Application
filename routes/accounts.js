@@ -1,9 +1,9 @@
-const express = require('express');
+import express from 'express';
+import {
+  addAccount, editAccount, getAccount, deleteAccount,
+} from '../controllers/accounts.js';
 
 const router = express.Router();
-const {
-  addAccount, editAccount, getAccount, deleteAccount,
-} = require('../controllers/accounts');
 
 router.post('/', addAccount);
 
@@ -13,4 +13,4 @@ router.get('/:id', getAccount);
 
 router.delete('/:id', deleteAccount);
 
-module.exports = router;
+export default router;

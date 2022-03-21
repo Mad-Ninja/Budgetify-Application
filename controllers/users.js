@@ -1,39 +1,57 @@
-const { users } = require('../database/users.js');
+import { ObjectId } from 'mongodb';
+import User from '../models/users.js';
 
-function addUser(req, res) {
-  users.push(req.body);
-  res.status(200).json({ message: 'User created' });
-}
+const mongoObjectId = function () {
+  let timestamp = (new Date().getTime() / 1000 | 0).toString(16);
+  return timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, function() {
+      return (Math.random() * 16 | 0).toString(16);
+  }).toLowerCase();
+};
 
-function editUser(req, res) {
-  const _id = req.params.id;
-  if (users[_id] == undefined || !users[_id].hasOwnProperty('id')) {
-    res.status(404).json({ message: 'Id is not exist' });
+async function addUser(req, res) {
+  try {
+    const copyOfUser = req.body;
+    copyOfUser._id = new ObjectId(mongoObjectId());
+    const user = await User.create(copyOfUser);
+    res.status(200).json({ message: 'User created' });
+  } catch (err) {
+    res.status(400).json(err);
   }
-  users[_id] = req.body;
-  res.status(200).json({ message: 'User edited' });
 }
 
-function getUser(req, res) {
-  const _id = req.params.id;
-  if (users[_id] == undefined || !users[_id].hasOwnProperty('id')) {
-    res.status(404).json({ message: 'Id is not exist' });
+async function editUser(req, res) {
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: new ObjectId(req.params.id) },
+      req.body,
+    );
+    res.status(200).json({ message: 'User edited' });
+  } catch (err) {
+    res.status(400).json(err);
   }
-  res.json(users[_id]);
 }
 
-function deleteUser(req, res) {
-  const _id = req.params.id;
-  if (users[_id] == undefined || !users[_id].hasOwnProperty('id')) {
-    res.status(404).json({ message: 'Id is not exist' });
+async function getUser(req, res) {
+  const id = new ObjectId(req.params.id);
+  const user = await User.findOne({ _id: id });
+  res.status(200).json(user);
+}
+
+async function deleteUser(req, res) {
+  try {
+    const user = await User.findOneAndDelete(
+      { _id: new ObjectId(req.params.id) },
+    );
+    res.status(200).json({ message: 'User deleted' });
+  } catch (err) {
+    res.status(400).json(err);
   }
-  users.splice(_id, 1);
-  res.status(200).json({ message: 'User deleted' });
 }
 
-module.exports = {
+export {
   addUser,
   editUser,
   getUser,
   deleteUser,
+  mongoObjectId,
 };
