@@ -1,10 +1,9 @@
 import supertest from 'supertest';
 import mongoose from 'mongoose';
 import { app } from '../app.js';
-import { ObjectId } from 'mongodb';
-import { mongoObjectId } from '../controllers/users.js';
+import { v4 as uuidv4 } from 'uuid';
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzY4ZTFlMjVkY2Q4MzU2NzJmZmNhZiIsImVtYWlsIjoibmlrb2xheUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NDc4MjYzMDMsImV4cCI6MTY0NzgyOTkwM30.bpMLXKHkPYedsEJAXvLFbdYvTyJZRb81hm1hqMr7q-Q';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkzMDU1YWNiLTUzMzEtNDRjMy1iODQxLTEyMWYxZTA4YjVhMSIsImVtYWlsIjoibmlrb2xheUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NDgxODg5NjMsImV4cCI6MTY0ODM2MTc2M30.i8MObGkHHU5516X9DA9AgeOmexY_UyXcickHzZ2USBs';
 describe('testing users', () => {
   beforeAll(async () => {
     await mongoose.disconnect();
@@ -17,7 +16,7 @@ describe('testing users', () => {
   describe('GET /users/:id', () => {
     it('should get user', async () => {
       const response = await supertest(app)
-        .get('/users/623691a725dcd835672ffcb2')
+        .get('/users/0fcc94bc-3626-40f5-b84f-d39143c134d4')
         .auth(token, { type: "bearer" })
 
       expect(response.status).toBe(200);
@@ -30,7 +29,7 @@ describe('testing users', () => {
         .post('/users/')
         .auth(token, { type: "bearer" })
         .send({
-          "_id": new ObjectId(mongoObjectId()),
+          "_id": uuidv4(),
           "email":"denis@gmail.com",
           "password":"12345",
           "role":"user",
@@ -52,7 +51,7 @@ describe('testing users', () => {
   describe('PUT /users/', () => {
     it('should update user', async () => {
       const response = await supertest(app)
-        .put('/users/623691a725dcd835672ffcb2')
+        .put('/users/ab50ea21-150d-4ce6-b473-d3da88a48700')
         .auth(token, { type: "bearer" })
         .send({
           "email":"hohoho@gmail.com",
@@ -74,7 +73,7 @@ describe('testing users', () => {
   describe('DELETE /users/', () => {
     it('should delete user', async () => {
       const response = await supertest(app)
-        .delete('/users/6237dccabafde554bd63a18e')
+        .delete('/users/e1725a9b-1f84-49aa-b1c8-04e2f5f3733d')
         .auth(token, { type: "bearer" });
 
       expect(response.status).toBe(200);

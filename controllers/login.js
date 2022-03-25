@@ -6,7 +6,7 @@ const loginUser = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     const payload = {
-      id: user.id,
+      id: user._id, 
       email: user.email,
       role: user.role,
     };
@@ -25,7 +25,7 @@ const loginUser = async (req, res) => {
       token: `Bearer ${token}`,
     });
   } else {
-    res.status(401).json({ message: 'Invalid credentials' });
+    res.status(401).json({ message: 'Invalid email or password' });
   }
 };
 

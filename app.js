@@ -11,10 +11,11 @@ import { adminGuard } from './guards.js';
 
 import usersRouter from './routes/users.js';
 import loginRouter from './routes/login.js';
+import logoutRouter from './routes/logout.js';
 import accountsRouter from './routes/accounts.js';
 import incomeRouter from './routes/income.js';
 import expenseRouter from './routes/expense.js';
-import expensesCategoriesRouter from './routes/expenses.categories.js';
+import CategoriesRouter from './routes/categories.js';
 
 config();
 
@@ -33,13 +34,15 @@ const opts = {
 mongoose.connect(`${process.env.MONGODB_URI}${process.env.DB_NAME}`);
 
 passport.use(new Strategy(opts, jwtCallback));
+
 const auth = passport.authenticate('jwt', { session: false });
 app.use('/users', auth, adminGuard, usersRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/accounts', auth, accountsRouter);
 app.use('/income', auth, incomeRouter);
 app.use('/expense', auth, expenseRouter);
-app.use('/expenses/categories', auth, expensesCategoriesRouter);
+app.use('/categories', auth, CategoriesRouter);
 
 export {
   app,

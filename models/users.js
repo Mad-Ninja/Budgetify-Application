@@ -1,9 +1,8 @@
-import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
 
-  _id: ObjectId,
+  _id: String,
   email: String,
   password: String,
   role: String,
@@ -12,11 +11,9 @@ const userSchema = new mongoose.Schema({
   gender: String,
   birth: String,
   country: String,
+  accounts: [],
+  categories: []
 
 });
-
-userSchema.statics.findByEmail = function (email) {
-  return this.where({ email: new RegExp(email, 'i') }).exec();
-};
 
 export default mongoose.model('User', userSchema);
