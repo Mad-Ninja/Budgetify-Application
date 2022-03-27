@@ -1,7 +1,7 @@
-const { getUserByEmail } = require('./database/users');
+import User from './models/users.js';
 
-const adminGuard = (req, res, next) => {
-  const user = getUserByEmail(req.user.email);
+const adminGuard = async (req, res, next) => {
+  const user = await User.findOne({ email: req.user.email });
 
   if (user && user.role.toLowerCase() === 'admin') {
     next();
@@ -10,6 +10,6 @@ const adminGuard = (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   adminGuard,
 };

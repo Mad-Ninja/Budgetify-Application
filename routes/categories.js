@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 
 const router = express.Router();
 
@@ -18,4 +18,4 @@ router.delete('/', (req, res) => {
   res.send('Category deleted');
 });
 
-module.exports = router;
+export default router;
