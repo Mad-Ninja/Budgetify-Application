@@ -1,4 +1,83 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #eceded;
+}
+.body__login-page{
+  background-image: url(assets/money-savings-currency-fingers.png);
+  background-size: cover;
+}
+
+#logout-icon{
+  position: adsolute;
+  font-size: 40px;
+}
+button:hover{
+  cursor: pointer;
+}
+.transaction-filter__button{
+  width: 235px;
+height: 49px;
+border-radius: 10px;
+background: #ffff;
+font-size: 20px;
+line-height: 26px;
+border: none;
+text-align: left;
+display: flex;
+padding-top: 7px;
+padding-left: 11px;
+margin-bottom: 16px;
+
+.expense-filter__button__icon,.income-filter__button__icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 9px;
+  mat-icon {
+    color: #fff;
+  }
+}
+.expense-filter__button__icon{
+  background: #ee3f19;
+}
+.income-filter__button__icon{
+  background: #21C206;
+}
+}
+.add-button_transaction,.add-button_account{
+  width: 235px;
+height: 49px;
+border-radius: 10px;
+background: #B9E2E6;
+font-size: 20px;
+line-height: 26px;
+border: none;
+text-align: left;
+padding-top: 7px;
+padding-left: 11px;
+margin-bottom: 16px;
+display: flex;
+
+.material-icons {
+  font-size: 35px;
+  margin-right: 9px;
+  color: #fff;
+  
+}
+}

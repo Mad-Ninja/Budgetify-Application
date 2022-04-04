@@ -1,0 +1,17 @@
+<div class="transaction-item" style="margin-bottom: 25px">
+  <div class="top-wrapper">
+    <div class="transaction-item__category">{{ transaction.category }}</div>
+    <p class="transaction-item__title">{{ transaction.title }}</p>
+    <div class="transaction-item__amount">-{{ transaction.amount }}$</div>
+  </div>
+  <div class="bottom-wrapper">
+    <div class="transaction-item__icon">
+      <mat-icon>{{ transaction.icon }}</mat-icon>
+    </div>
+    <ul>
+      <li>{{ transaction.type }}</li>
+      <span>.</span>
+      <li>{{ transaction.date }}</li>
+    </ul>
+  </div>
+</div>
