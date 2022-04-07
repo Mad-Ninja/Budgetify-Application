@@ -13,8 +13,7 @@ import usersRouter from './routes/users.js';
 import loginRouter from './routes/login.js';
 import logoutRouter from './routes/logout.js';
 import accountsRouter from './routes/accounts.js';
-import incomeRouter from './routes/income.js';
-import expenseRouter from './routes/expense.js';
+import transactionsRouter from './routes/transactions.js';
 import CategoriesRouter from './routes/categories.js';
 
 config();
@@ -40,8 +39,7 @@ app.use('/users', auth, usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/accounts', auth, accountsRouter);
-app.use('/income', auth, incomeRouter);
-app.use('/expense', auth, expenseRouter);
+app.use('/transactions', auth, transactionsRouter);
 app.use('/categories', auth, CategoriesRouter);
 
 export {

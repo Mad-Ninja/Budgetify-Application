@@ -8,19 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  user: UserModel = {
-    "_id": '',
-    "email": '',
-    "password": '',
-    "role": '',
-    "firstName": '',
-    "lastName": '',
-    "gender": '',
-    "birth": '',
-    "country": '',
-    "accounts":[],
-    "categories":[]
-  }
+  user!: UserModel ;
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string) {

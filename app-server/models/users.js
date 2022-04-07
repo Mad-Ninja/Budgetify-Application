@@ -11,8 +11,7 @@ const userSchema = new mongoose.Schema({
   gender: String,
   birth: String,
   country: String,
-  accounts: [],
-  categories: []
+  categories: [],
 
 });
 
