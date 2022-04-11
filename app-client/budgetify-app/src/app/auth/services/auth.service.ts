@@ -1,28 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { UserModel } from '../auth-form/auth-form.component';
 import { Router } from '@angular/router';
+import { IAuth } from 'src/app/models/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user!: UserModel ;
+  authData: IAuth = {
+    email: '',
+    expiresIn: 0,
+    id: '',
+    role: '',
+    token: '',
+  };
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string) {
+    const body = new HttpParams().set('email', email).set('password', password);
+
     return this.http
-      .post('http://localhost:3000/login', { email: email, password: password })
-      .pipe(tap((res) => {
-        this.setSession(res);
-        
-      }));
+      .post<IAuth>('http://localhost:3000/login', body, {
+        headers: new HttpHeaders().set(
+          'Content-Type',
+          'application/x-www-form-urlencoded'
+        ),
+      })
+      .pipe(
+        tap((res: IAuth) => {
+          this.setSession(res);
+        })
+      );
   }
 
-  getUserData(data: any){
-    return this.http.get<UserModel>('http://localhost:3000/users/' + data.id );
-  }
   isLoggedIn() {
     const expiresIn = localStorage.getItem('expiresIn');
     if (expiresIn) {
@@ -34,22 +45,23 @@ export class AuthService {
   logOut() {
     localStorage.removeItem('expiresIn');
     localStorage.removeItem('idToken');
+    localStorage.removeItem('id');
   }
 
-  private setSession(res: any) {
+  private setSession(res: IAuth) {
     const expiresIn = Date.now() + Number(res.expiresIn);
     localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
+    localStorage.setItem('id', res.id);
   }
 
-  sendData(element: UserModel){
-    this.user = element;
+  sendData(element: IAuth) {
+    this.authData = element;
     this.router.navigateByUrl('/budgetify/main');
   }
 
-  getData(){
-    let temp = this.user;
-    return temp;
+  getData() {
+    let temp = this.authData;
+    return temp.id;
   }
-
 }

@@ -35,6 +35,10 @@ async function getTransaction(req, res) {
 async function getAllTransactions(req, res) {
   try {
     const transactions = await Transaction.find({ accountId: req.params.accountId });
+    if (transactions.length === 0 || transactions == null || transactions === false) {
+      res.status(400).json({message: 'Not found'});
+      return;
+    }
     res.status(200).json(transactions);
   } catch (err) {
     res.status(400).json(err);
@@ -42,7 +46,7 @@ async function getAllTransactions(req, res) {
 }
 async function deleteTransaction(req, res) {
   try {
-    await Account.findByIdAndDelete(req.params.id);
+    await Transaction.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Transaction deleted' });
   } catch (err) {
     res.status(400).json(err);

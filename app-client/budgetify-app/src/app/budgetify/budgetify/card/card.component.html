@@ -1,0 +1,16 @@
+<div class="cards-wrapper">
+  <div
+    class="card-item"
+    *ngFor="let card of cardService.accountCards"
+    [id]="card._id"
+    (click)="cardService.clickOnCard($event)"
+  >
+    <p class="card-item__title" [id]="card._id">
+      {{
+        card.name.length > 16 ? (card.name | slice: 0:16) + '...' : card.name
+      }}
+    </p>
+    <p class="card-item__currency" [id]="card._id">{{ card.currency }}</p>
+    <p class="card-item__amount" [id]="card._id">{{ card.amount }}</p>
+  </div>
+</div>

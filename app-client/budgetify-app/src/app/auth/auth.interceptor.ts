@@ -16,10 +16,10 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if(this.authService.isLoggedIn()){
+    if (this.authService.isLoggedIn()) {
       const jwt = localStorage.getItem('idToken');
       const cloned = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${jwt}`)
+        headers: request.headers.set('Authorization', `Bearer ${jwt}`),
       });
       return next.handle(cloned);
     }

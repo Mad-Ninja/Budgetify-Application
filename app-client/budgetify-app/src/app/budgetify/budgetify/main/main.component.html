@@ -1,25 +1,12 @@
-<div class="cards-wrapper">
-  <app-card class="cards-container" *ngFor="let card of cards"></app-card>
-</div>
-<div class="content-wrapper">
-  <app-search-field class="search-field__container"></app-search-field>
-  <app-transactions
-    class="transactions-container"
-    *ngFor="let transaction of transactions"
-  ></app-transactions>
-</div>
-<div class="side-buttons-container">
-  <button class="transaction-filter__button income-filter__button">
-    <div class="income-filter__button__icon">
-      <mat-icon>arrow_downward</mat-icon>
-    </div>
-    Income
-  </button>
-  <button class="transaction-filter__button expense-filter__button">
-    <div class="expense-filter__button__icon">
-      <mat-icon>arrow_upward</mat-icon>
-    </div>
-    Expense
-  </button>
-  <app-add-button></app-add-button>
+<div class="budgetify__main">
+  <app-card></app-card>
+
+  <div class="content-wrapper">
+    <app-search-field class="search-field__container"></app-search-field>
+    <app-transactions *ngIf="cardService.isNoTransactions"></app-transactions>
+  </div>
+  <div class="side-buttons-container">
+    <app-transactions-filter-btn></app-transactions-filter-btn>
+    <app-add-button></app-add-button>
+  </div>
 </div>

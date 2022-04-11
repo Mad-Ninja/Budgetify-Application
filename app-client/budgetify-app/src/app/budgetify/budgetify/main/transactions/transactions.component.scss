@@ -1,7 +1,7 @@
 .transaction-item {
   width: 617px;
   height: 91px;
-
+  cursor: pointer;
   padding: 12px 18px;
   background: #fff;
   border-radius: 10px;
@@ -27,6 +27,7 @@
     font-size: 20px;
     line-height: 26px;
     margin-left: 2rem;
+    width: 300px;
   }
   &__amount {
     display: flex;
@@ -43,14 +44,14 @@
     display: flex;
     position: relative;
     top: -30px;
-    margin-left: 185px;
-    
+    margin-left: 150px;
+
     ul {
       display: flex;
       margin-left: 10px;
       margin-top: 10px;
-      span{
-        margin: -10px 30px;
+      span {
+        margin: -10px 20px;
         font-size: 30px;
       }
       li {
