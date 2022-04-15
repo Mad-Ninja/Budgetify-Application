@@ -8,6 +8,7 @@ import { UserModel } from 'src/app/models/user';
   providedIn: 'root',
 })
 export class BudgetifyService {
+ 
   user: UserModel = {
     _id: '',
     email: '',

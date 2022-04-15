@@ -22,7 +22,7 @@ const loginUser = async (req, res) => {
       email: user.email,
       role: user.role,
       token: jwtToken,
-      expiresIn: 10 * 60 * 1000,
+      expiresIn: 60 * 60 * 1000,
     });
   } else {
     res.status(401).json({ message: 'Invalid email or password' });

@@ -29,32 +29,18 @@ button:hover {
   cursor: pointer;
 }
 
-.add-button_transaction,
-.add-button_account {
-  width: 235px;
-  height: 49px;
-  border-radius: 10px;
-  background: #b9e2e6;
-  font-size: 20px;
-  line-height: 26px;
-  border: none;
-  text-align: left;
-  padding-top: 7px;
-  padding-left: 11px;
-  margin-bottom: 16px;
-  display: flex;
-
-  .material-icons {
-    font-size: 35px;
-    margin-right: 9px;
-    color: #fff;
+.mat-form-field-underline {
+  display: none;
+}
+a,
+.transactions-sort__button {
+  cursor: pointer;
+  display: block;
+  transition: 0.7s;
+  &:hover {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
   }
 }
-
-.mat-form-field-underline{
-  display: none;
-  
- }
-
-
- 

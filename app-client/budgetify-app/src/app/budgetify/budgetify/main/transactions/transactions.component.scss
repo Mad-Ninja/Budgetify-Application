@@ -9,6 +9,7 @@
     display: flex;
   }
   &__category {
+    padding: 0 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,6 +30,12 @@
     margin-left: 2rem;
     width: 300px;
   }
+  .expense-amount{
+    color: #ee3f19 !important;
+    &:before{
+      content:'-';
+    }  
+  }
   &__amount {
     display: flex;
     justify-content: center;
@@ -37,7 +44,7 @@
     font-weight: 400;
     font-size: 22px;
     line-height: 28px;
-    color: #ee3f19;
+    color: #21c206;
     margin-left: 8rem;
   }
   .bottom-wrapper {
@@ -60,10 +67,24 @@
         line-height: 19px;
       }
     }
+    .expense-icon{
+      background: #ee3f19;
+    }
+    .income-icon{
+      background: #21c206;
+    }
+    .expense-amount{
+      color: #ee3f19 ;
+
+      
+    }
+    .income-amount{
+      color: #21c206;
+    }
+  
     .transaction-item__icon {
       width: 30px;
       height: 30px;
-      background: #ee3f19;
       border-radius: 50%;
       display: flex;
       justify-content: center;
@@ -73,4 +94,15 @@
       }
     }
   }
+}
+.transactions-sort__button{
+  span{
+    display: block;
+  }
+  display: flex;
+  align-items: center;
+  width: 200px;
+  font-size: 18px;
+  margin-bottom: 15px;
+  
 }

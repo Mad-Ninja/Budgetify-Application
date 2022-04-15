@@ -1,16 +1,21 @@
 <div class="cards-wrapper">
   <div
     class="card-item"
-    *ngFor="let card of cardService.accountCards"
-    [id]="card._id"
-    (click)="cardService.clickOnCard($event)"
+    *ngFor="let card of cardService.accountCards; let indexOfelement = index"
+    (click)="cardService.clickOnCard($event, indexOfelement)"
+    [ngClass]="{ active: indexOfelement === cardService.selectedIndex }"
   >
-    <p class="card-item__title" [id]="card._id">
+    <p class="card-item__title">
       {{
         card.name.length > 16 ? (card.name | slice: 0:16) + '...' : card.name
       }}
     </p>
-    <p class="card-item__currency" [id]="card._id">{{ card.currency }}</p>
-    <p class="card-item__amount" [id]="card._id">{{ card.amount }}</p>
+    <p class="card-item__currency">{{ card.currency }}</p>
+    <p class="card-item__amount">{{ card.amount }}</p>
+    <a
+      class="card-item__info-link"
+      (click)="cardService.clickOnMoreDetails($event, indexOfelement)"
+      >More Details</a
+    >
   </div>
 </div>

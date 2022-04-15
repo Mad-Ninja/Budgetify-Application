@@ -2,7 +2,7 @@
   font-family: 'Space Grotesk', sans-serif;
   margin-top: 2rem;
   display: flex;
-  font-size: 20px;
+  font-size: 30px;
   .header-links {
     margin-left: 30%;
     margin-top: 10px;
@@ -15,6 +15,7 @@
     }
   }
   .header-text__title {
+    font-size: 30px;
     font-family: 'Alata';
     font-style: normal;
     font-weight: 400;
@@ -29,7 +30,11 @@
   }
 
   .header-user-info {
+    
     margin-left: 12%;
+    button{
+      font-size: 20px;
+    }
   
     }
   }

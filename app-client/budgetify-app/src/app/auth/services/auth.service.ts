@@ -37,7 +37,7 @@ export class AuthService {
   isLoggedIn() {
     const expiresIn = localStorage.getItem('expiresIn');
     if (expiresIn) {
-      return Date.now() < Number(expiresIn);
+      return Math.round(Date.now()) < Number(expiresIn);
     }
     return false;
   }
@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   private setSession(res: IAuth) {
-    const expiresIn = Date.now() + Number(res.expiresIn);
+    const expiresIn = Math.round(Date.now()) + Number(res.expiresIn);
     localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
     localStorage.setItem('id', res.id);

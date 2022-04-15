@@ -23,6 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(cloned);
     }
+    this.authService.logOut();
     return next.handle(request);
   }
 }
