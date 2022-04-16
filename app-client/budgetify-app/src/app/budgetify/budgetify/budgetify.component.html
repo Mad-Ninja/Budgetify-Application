@@ -1,8 +1,15 @@
-<div class="budgetify-container">
-  <div class="budgetify__content">
-    <app-header class="budgetify__header"></app-header>
-    <app-main class="budgetify__main"></app-main>
-  </div>
+<mat-sidenav-container class="sidenav">
+  <mat-sidenav class="sidenav__aside" position="end" #sidenavVariable>
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav__content">
+    <div class="budgetify-container">
+      <div class="budgetify__content">
+        <app-header class="budgetify__header" *ngIf="showHeader"></app-header>
+        <router-outlet></router-outlet>
+      </div>
 
-  <app-footer class="budgetify__footer"></app-footer>
-</div>
+      <app-footer class="budgetify__footer"></app-footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

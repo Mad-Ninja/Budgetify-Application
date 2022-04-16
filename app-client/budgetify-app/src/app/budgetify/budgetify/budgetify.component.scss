@@ -13,7 +13,11 @@
 .budgetify__footer {
   flex-shrink: 0;
 }
-.budgetify__main{
-  display: flex;
-  justify-content: space-between;
+
+.sidenav {
+  height: 100%;
+
+  &__aside {
+    width: 580px;
+  }
 }

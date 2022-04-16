@@ -1,0 +1,55 @@
+.sidenav__aside-content {
+  padding-top: 40px;
+  padding-left: 34px;
+  padding-right: 34px;
+}
+.account-info {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    h2 {
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 41px;
+      font-family: 'Space Grotesk';
+      font-style: normal;
+    }
+    span {
+      font-size: 35px;
+      margin-right: 10px;
+      transition: 0.3s;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+    }
+  }
+  &__list {
+    ul {
+      li {
+        font-size: 20px;
+        list-style: none;
+        display: flex;
+        border-bottom: 2px solid #000;
+        padding-bottom: 17px;
+        margin-top: 16px;
+        &:last-child {
+          border-bottom: none;
+          div {
+            &:last-child {
+              max-width: 295px;
+            }
+          }
+        }
+        div {
+          line-height: 26px;
+          &:nth-child(1) {
+            width: 80px;
+            font-weight: 700;
+            margin-right: 120px;
+          }
+        }
+      }
+    }
+  }
+}

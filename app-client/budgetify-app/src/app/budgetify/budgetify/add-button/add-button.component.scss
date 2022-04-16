@@ -1,0 +1,21 @@
+.add-button_transaction,
+.add-button_account {
+  width: 235px;
+  height: 49px;
+  border-radius: 10px;
+  background: #b9e2e6;
+  font-size: 20px;
+  line-height: 26px;
+  border: none;
+  text-align: left;
+  padding-top: 7px;
+  padding-left: 11px;
+  margin-bottom: 16px;
+  display: flex;
+
+  .material-icons {
+    font-size: 35px;
+    margin-right: 9px;
+    color: #fff;
+  }
+}

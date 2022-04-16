@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserModel } from 'src/app/models/user';
+import { BudgetifyService } from '../../services/budgetify.service';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +11,13 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  data = this.authService.getData();
-  fullUserName : string = '';
-  constructor(private authService: AuthService, private router: Router,) {}
+  user: UserModel = this.budgetifyService.user;
+  fullUserName: string = '';
+  constructor(
+    private authService: AuthService,
+    private budgetifyService: BudgetifyService,
+    private router: Router
+  ) {}
 
   logout() {
     this.authService.logOut();
@@ -19,6 +25,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fullUserName = this.data.firstName + ' ' + this.data.lastName;
+    this.fullUserName = this.user.firstName + ' ' + this.user.lastName;
   }
 }

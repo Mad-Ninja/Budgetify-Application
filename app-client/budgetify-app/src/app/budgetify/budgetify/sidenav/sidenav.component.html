@@ -1,0 +1,39 @@
+<div class="sidenav__aside-content">
+  <div class="account-info" *ngIf="sidenavService.isAccountInfo">
+    <div class="account-info__header">
+      <div>
+        <h2>Account Information</h2>
+      </div>
+      <div class="account-info__btns">
+        <span class="material-icons account-info__edit"> edit </span>
+        <span class="material-icons account-info__delete"> delete </span>
+        <span
+          class="material-icons account-info__close"
+          (click)="sidenavService.closeSidenav()"
+        >
+          close
+        </span>
+      </div>
+    </div>
+    <div class="account-info__list">
+      <ul>
+        <li>
+          <div>Title:</div>
+          <div>{{ sidenavService.accountInfoTitle }}</div>
+        </li>
+        <li>
+          <div>Balance:</div>
+          <div>{{ sidenavService.accountInfoBalance }}</div>
+        </li>
+        <li>
+          <div>Currency:</div>
+          <div>{{ sidenavService.accountInfoCurrency }}</div>
+        </li>
+        <li>
+          <div>Description:</div>
+          <div>{{ sidenavService.accountInfoDescription }}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

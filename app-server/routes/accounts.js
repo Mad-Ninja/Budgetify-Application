@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  addAccount, editAccount, getAccount, deleteAccount,
+  addAccount, editAccount, getAccount, deleteAccount, getAllAccounts,
 } from '../controllers/accounts.js';
 
 const router = express.Router();
@@ -8,6 +8,8 @@ const router = express.Router();
 router.post('/', addAccount);
 
 router.put('/:id', editAccount);
+
+router.get('/', getAllAccounts);
 
 router.get('/:id', getAccount);
 

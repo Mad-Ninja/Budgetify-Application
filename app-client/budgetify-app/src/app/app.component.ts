@@ -11,8 +11,4 @@ export class AppComponent {
   title = 'budgetify-app';
 
   constructor(private authService: AuthService, private router: Router) {}
-
-  get isLoggedIn() {
-    return this.authService.isLoggedIn();
-  }
 }

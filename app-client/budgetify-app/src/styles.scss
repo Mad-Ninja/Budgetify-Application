@@ -10,74 +10,37 @@ html,
 body {
   height: 100%;
 }
-body {
+body,
+.sidenav {
   margin: 0;
   font-family: 'Space Grotesk', sans-serif;
   background-color: #eceded;
 }
-.body__login-page{
+.body__login-page {
   background-image: url(assets/money-savings-currency-fingers.png);
   background-size: cover;
 }
 
-#logout-icon{
+#logout-icon {
   position: adsolute;
   font-size: 40px;
 }
-button:hover{
+button:hover {
   cursor: pointer;
 }
-.transaction-filter__button{
-  width: 235px;
-height: 49px;
-border-radius: 10px;
-background: #ffff;
-font-size: 20px;
-line-height: 26px;
-border: none;
-text-align: left;
-display: flex;
-padding-top: 7px;
-padding-left: 11px;
-margin-bottom: 16px;
 
-.expense-filter__button__icon,.income-filter__button__icon {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 9px;
-  mat-icon {
-    color: #fff;
+.mat-form-field-underline {
+  display: none;
+}
+a,
+.transactions-sort__button {
+  cursor: pointer;
+  display: block;
+  transition: 0.7s;
+  &:hover {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
   }
-}
-.expense-filter__button__icon{
-  background: #ee3f19;
-}
-.income-filter__button__icon{
-  background: #21C206;
-}
-}
-.add-button_transaction,.add-button_account{
-  width: 235px;
-height: 49px;
-border-radius: 10px;
-background: #B9E2E6;
-font-size: 20px;
-line-height: 26px;
-border: none;
-text-align: left;
-padding-top: 7px;
-padding-left: 11px;
-margin-bottom: 16px;
-display: flex;
-
-.material-icons {
-  font-size: 35px;
-  margin-right: 9px;
-  color: #fff;
-  
-}
 }

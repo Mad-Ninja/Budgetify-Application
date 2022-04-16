@@ -13,10 +13,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthFormComponent } from './auth/auth-form/auth-form.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent
-  ],
+  declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -25,17 +22,17 @@ import { AuthFormComponent } from './auth/auth-form/auth-form.component';
     BudgetifyModule,
     HttpClientModule,
     AppRoutingModule,
-    
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    },{
-      provide: AuthFormComponent
-    }
+    },
+    {
+      provide: AuthFormComponent,
+    },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

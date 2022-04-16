@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TransactionsService } from './services/transactions.service';
 
 @Component({
   selector: 'app-transactions',
@@ -7,16 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransactionsComponent implements OnInit {
 
-  transaction = {
-    type:'Expenses',
-    title:'Flat rent for March',
-    category:'Home',
-    description:'text',
-    amount:'230',
-    date: '13.9.2021', 
-    icon: 'arrow_upward' 
-  }
-  constructor() { }
+
+  constructor(public transactionService: TransactionsService) { }
 
   ngOnInit(): void {
   }

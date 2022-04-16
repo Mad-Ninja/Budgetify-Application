@@ -1,17 +1,56 @@
-<div class="transaction-item" style="margin-bottom: 25px">
+<div class="transactions-sort__button">
+  <span class="material-icons"> sort </span> Transaction Date
+</div>
+<div
+  class="transaction-item"
+  style="margin-bottom: 25px"
+  *ngFor="let transaction of transactionService.transactionsCards"
+>
   <div class="top-wrapper">
-    <div class="transaction-item__category">{{ transaction.category }}</div>
-    <p class="transaction-item__title">{{ transaction.title }}</p>
-    <div class="transaction-item__amount">-{{ transaction.amount }}$</div>
+    <div class="transaction-item__category">
+      {{
+        transaction.category.length > 11
+          ? (transaction.category | slice: 0:10) + '...'
+          : transaction.category
+      }}
+    </div>
+    <p class="transaction-item__title">
+      {{
+        transaction.title.length > 35
+          ? (transaction.title | slice: 0:35) + '...'
+          : transaction.title
+      }}
+    </p>
+    <div
+      class="transaction-item__amount"
+      [class.expense-amount]="
+        transactionService.transactionIcon(transaction.type) === 'arrow_upward'
+      "
+    >
+      {{ transaction.amount }}$
+    </div>
   </div>
   <div class="bottom-wrapper">
-    <div class="transaction-item__icon">
-      <mat-icon>{{ transaction.icon }}</mat-icon>
+    <div
+      class="transaction-item__icon"
+      [class.income-icon]="
+        transactionService.transactionIcon(transaction.type) ===
+        'arrow_downward'
+      "
+      [class.expense-icon]="
+        transactionService.transactionIcon(transaction.type) === 'arrow_upward'
+      "
+    >
+      <mat-icon>{{
+        transactionService.transactionIcon(transaction.type)
+      }}</mat-icon>
     </div>
     <ul>
       <li>{{ transaction.type }}</li>
       <span>.</span>
-      <li>{{ transaction.date }}</li>
+      <li>{{ transaction.dateOfPayment }}</li>
+      <span>.</span>
+      <li>{{ transaction.payee }}</li>
     </ul>
   </div>
 </div>

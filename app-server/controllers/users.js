@@ -1,6 +1,6 @@
-import User from '../models/users.js';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
+import User from '../models/users.js';
 
 async function addUser(req, res) {
   try {
@@ -29,8 +29,12 @@ async function editUser(req, res) {
 }
 
 async function getUser(req, res) {
-  const user = await User.findOne({ _id: req.params.id });
-  res.status(200).json(user);
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 }
 
 async function deleteUser(req, res) {
