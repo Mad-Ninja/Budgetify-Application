@@ -6,23 +6,24 @@ const loginUser = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     const payload = {
-      id: user._id, 
+      id: user._id,
       email: user.email,
       role: user.role,
     };
 
-    const token = jwt.sign(
+    const jwtToken = jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN },
+      { expiresIn: '1h' },
     );
 
-    res.status(200).json({
+    res.status(200).send({
       id: user.id,
       email: user.email,
       role: user.role,
       password: req.body.password,
-      token: `Bearer ${token}`,
+      token: jwtToken,
+      expiresIn: 10 * 60 * 1000,
     });
   } else {
     res.status(401).json({ message: 'Invalid email or password' });

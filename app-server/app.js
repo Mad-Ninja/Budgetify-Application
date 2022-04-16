@@ -36,7 +36,7 @@ mongoose.connect(`${process.env.MONGODB_URI}${process.env.DB_NAME}`);
 passport.use(new Strategy(opts, jwtCallback));
 
 const auth = passport.authenticate('jwt', { session: false });
-app.use('/users', auth, adminGuard, usersRouter);
+app.use('/users', auth, usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/accounts', auth, accountsRouter);
