@@ -14,6 +14,7 @@ export class AuthService {
     id: '',
     role: '',
     token: '',
+    country: '',
   };
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -53,6 +54,7 @@ export class AuthService {
     localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
     localStorage.setItem('id', res.id);
+    localStorage.setItem('userCountry', res.country);
   }
 
   sendData(element: IAuth) {

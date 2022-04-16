@@ -3,6 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user';
 import { BudgetifyService } from '../services/budgetify.service';
+import { AddBtnService } from './add-button/services/add-btn.service';
 import { CardService } from './card/services/card.service';
 import { SidenavService } from './sidenav/services/sidenav.service';
 
@@ -20,6 +21,7 @@ export class BudgetifyComponent implements OnInit {
     public budgetifyService: BudgetifyService,
     private cardService: CardService,
     private sidenavService: SidenavService,
+    private addBtnService: AddBtnService,
     private router: Router
   ) {
     this.cardService.componentMethodCalled$.subscribe(() => {
@@ -27,6 +29,9 @@ export class BudgetifyComponent implements OnInit {
     });
     this.sidenavService.componentMethodCalled$.subscribe(() => {
       this.myNav.close();
+    });
+    this.addBtnService.componentMethodCalled$.subscribe(() => {
+      this.myNav.open();
     });
   }
 
@@ -36,11 +41,13 @@ export class BudgetifyComponent implements OnInit {
     });
   }
 
+  
   removeBodyClass() {
     this.renderer.removeClass(document.body, 'body__login-page');
   }
   ngOnInit(): void {
     this.removeBodyClass();
     this.getUser(this.authUserId);
+    console.log(this.budgetifyService.user.country)
   }
 }

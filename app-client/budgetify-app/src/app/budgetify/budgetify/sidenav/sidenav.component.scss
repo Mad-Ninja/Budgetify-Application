@@ -3,7 +3,8 @@
   padding-left: 34px;
   padding-right: 34px;
 }
-.account-info {
+.account-info,
+.account-add {
   &__header {
     display: flex;
     justify-content: space-between;
@@ -24,6 +25,8 @@
       }
     }
   }
+}
+.account-info {
   &__list {
     ul {
       li {
@@ -50,6 +53,36 @@
           }
         }
       }
+    }
+  }
+}
+.account-add {
+  .account-add__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .mat-form-field-wrapper {
+      background: rgb(234, 243, 245) !important;
+    }
+    mat-form-field {
+      max-width: 500px;
+      input,
+      textarea,
+      mat-select {
+        font-size: 20px;
+        padding-top: 10px;
+      }
+      mat-label {
+        font-size: 20px;
+      }
+      textarea {
+        resize: none;
+        height: 25rem;
+      }
+    }
+    .button {
+      height: 40px;
+      font-size: 20px;
     }
   }
 }

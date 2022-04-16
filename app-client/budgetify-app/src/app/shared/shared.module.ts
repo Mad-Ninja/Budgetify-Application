@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {MatListModule} from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [],
   imports: [
@@ -25,7 +26,8 @@ import {MatListModule} from '@angular/material/list';
     MatNativeDateModule,
     MatTableModule,
     MatButtonToggleModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -37,7 +39,8 @@ import {MatListModule} from '@angular/material/list';
     MatDatepickerModule,
     MatTableModule,
     MatButtonToggleModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule
   ],
   providers: [MatDatepickerModule],
 })

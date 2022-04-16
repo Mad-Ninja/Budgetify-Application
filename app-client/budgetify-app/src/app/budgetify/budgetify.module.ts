@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { BudgetifyComponent } from './budgetify/budgetify.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
@@ -16,7 +17,7 @@ import { SidenavComponent } from './budgetify/sidenav/sidenav.component';
 import { StatisticComponent } from './budgetify/statistic/statistic.component';
 import { CategoriesComponent } from './budgetify/categories/categories.component';
 import { TransactionsFilterBtnComponent } from './budgetify/transactions-filter-btn/transactions-filter-btn.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -64,10 +65,12 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    ToastNotificationsModule,
     SharedModule,
     RouterModule.forChild(routes),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class BudgetifyModule {}

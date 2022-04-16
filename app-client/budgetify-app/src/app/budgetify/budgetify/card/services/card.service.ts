@@ -14,7 +14,6 @@ export class CardService {
   isTransactions: boolean = false;
   selectedIndex = 0;
 
-
   private componentMethodCallSource = new Subject<any>();
   componentMethodCalled$ = this.componentMethodCallSource.asObservable();
 
@@ -29,40 +28,42 @@ export class CardService {
     return this.http.get<ICard[]>('http://localhost:3000/accounts').pipe(
       tap((res: ICard[]) => {
         this.accountCards = res;
-        this.transactionService.getTransactions(this.accountCards[this.selectedIndex]._id).subscribe(
-          (data) => {
-            this.isTransactions = true;           
-          },
-          (error) => {
-            this.isTransactions = false;
-          }
-        );
+        this.transactionService
+          .getTransactions(this.accountCards[this.selectedIndex]._id)
+          .subscribe(
+            (data) => {
+              this.isTransactions = true;
+            },
+            (error) => {
+              this.isTransactions = false;
+            }
+          );
       })
     );
   }
   clickOnCard(ev: any, index: any) {
-    console.log(index)
-    this.transactionService.getTransactions(this.accountCards[index]._id).subscribe(
-      (data) => {
-        this.isTransactions = true;
-        this.selectedIndex = index;
-        
-      },
-      (error) => {
-        this.isTransactions = false;
-      }
-    );
+    this.transactionService
+      .getTransactions(this.accountCards[index]._id)
+      .subscribe(
+        (data) => {
+          this.isTransactions = true;
+          this.selectedIndex = index;
+        },
+        (error) => {
+          this.selectedIndex = index;
+          this.isTransactions = false;
+        }
+      );
   }
-  clickOnMoreDetails(event: any, index: any){  
+  clickOnMoreDetails(event: any, index: any) {
     event.stopPropagation();
-    this.sidenavService.isAccountInfo=true;
+    this.sidenavService.changeSidenavContent('isAccountInfo');
     this.sidenavService.accountInfoTitle = this.accountCards[index].name;
-    this.sidenavService.accountInfoBalance =  this.accountCards[index].amount;
-    this.sidenavService.accountInfoCurrency = this.accountCards[index].currency;
-    this.sidenavService.accountInfoDescription = this.accountCards[index].description;
+    this.sidenavService.accountInfoBalance = this.accountCards[index].amount;
+    this.sidenavService.accountInfoCurrency =
+      this.accountCards[index].currency.symbolNative;
+    this.sidenavService.accountInfoDescription =
+      this.accountCards[index].description;
     this.componentMethodCallSource.next(void 0);
-   
-
-
   }
 }

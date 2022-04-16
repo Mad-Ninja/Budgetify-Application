@@ -7,10 +7,11 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -24,6 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(cloned);
     }
     this.authService.logOut();
+    this.router.navigateByUrl('/login');
     return next.handle(request);
   }
 }

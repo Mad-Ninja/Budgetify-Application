@@ -36,4 +36,60 @@
       </ul>
     </div>
   </div>
+  <div class="account-add" *ngIf="sidenavService.isAccountAdd">
+    <div class="account-add__header">
+      <div>
+        <h2>Create Account</h2>
+      </div>
+      <div class="account-add__btns">
+        <span
+          class="material-icons account-info__close"
+          (click)="sidenavService.closeSidenav()"
+          (click)="formAddAccount.reset()"
+        >
+          close
+        </span>
+      </div>
+    </div>
+    <div class="account-add">
+      <form
+        class="account-add__form"
+        [formGroup]="addAccountForm"
+        (ngSubmit)="onSaveAccount(); formAddAccount.reset()"
+        #formAddAccount
+      >
+        <mat-form-field appearance="fill" class="title">
+          <mat-label>Title</mat-label>
+          <input matInput maxlength="128" formControlName="title" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="currency">
+          <mat-label>Currency</mat-label>
+          <mat-select formControlName="currency">
+            <mat-option
+              *ngFor="let cur of sidenavService.currenciesMy"
+              [value]="cur.name"
+              >{{ cur.name }}({{ cur.symbolNative }})</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="description">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            maxlength="256"
+            formControlName="description"
+          ></textarea>
+        </mat-form-field>
+        <button
+          class="button"
+          type="submit"
+          color="primary"
+          [disabled]="addAccountForm.invalid"
+          mat-raised-button
+        >
+          Save
+        </button>
+      </form>
+    </div>
+  </div>
 </div>

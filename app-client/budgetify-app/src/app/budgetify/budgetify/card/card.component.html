@@ -10,7 +10,12 @@
         card.name.length > 16 ? (card.name | slice: 0:16) + '...' : card.name
       }}
     </p>
-    <p class="card-item__currency">{{ card.currency }}</p>
+    <p
+      class="card-item__currency"
+      [class.small-symbol]="card.currency.symbolNative === 'руб.'"
+    >
+      {{ card.currency.symbolNative }}
+    </p>
     <p class="card-item__amount">{{ card.amount }}</p>
     <a
       class="card-item__info-link"

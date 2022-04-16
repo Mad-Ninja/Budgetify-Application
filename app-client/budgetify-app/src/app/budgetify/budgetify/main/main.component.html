@@ -3,8 +3,8 @@
   <div *ngIf="false"><p>You don't have any account. Please create one.</p></div>
   <div class="content-wrapper">
     <app-search-field class="search-field__container"></app-search-field>
-    <div *ngIf="false">
-      <p>You don't have any transactions. Please create one.</p>
+    <div *ngIf="!cardService.isTransactions" class="no-data__container">
+      You don't have any transactions. Please create one.
     </div>
     <app-transactions *ngIf="cardService.isTransactions"></app-transactions>
   </div>
