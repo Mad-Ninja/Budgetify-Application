@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { AddBtnService } from './add-btn.service';
 
-describe('AddBtnService', () => {
+xdescribe('AddBtnService', () => {
   let service: AddBtnService;
 
   beforeEach(() => {

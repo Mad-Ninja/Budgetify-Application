@@ -12,6 +12,7 @@ import { SidenavService } from '../../sidenav/services/sidenav.service';
 export class CardService {
   public accountCards: ICard[] = [];
   isTransactions: boolean = false;
+  isAccounts: boolean = false;
   selectedIndex = 0;
 
   private componentMethodCallSource = new Subject<any>();
@@ -25,21 +26,7 @@ export class CardService {
   ) {}
 
   getAccounts() {
-    return this.http.get<ICard[]>('http://localhost:3000/accounts').pipe(
-      tap((res: ICard[]) => {
-        this.accountCards = res;
-        this.transactionService
-          .getTransactions(this.accountCards[this.selectedIndex]._id)
-          .subscribe(
-            (data) => {
-              this.isTransactions = true;
-            },
-            (error) => {
-              this.isTransactions = false;
-            }
-          );
-      })
-    );
+    return this.http.get<ICard[]>('http://localhost:3000/accounts');
   }
   clickOnCard(ev: any, index: any) {
     this.transactionService

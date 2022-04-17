@@ -66,8 +66,8 @@
           <mat-label>Currency</mat-label>
           <mat-select formControlName="currency">
             <mat-option
-              *ngFor="let cur of sidenavService.currenciesMy"
-              [value]="cur.name"
+              *ngFor="let cur of budgetifyService.currenciesMy"
+              [value]="cur.code"
               >{{ cur.name }}({{ cur.symbolNative }})</mat-option
             >
           </mat-select>

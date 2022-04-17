@@ -3,20 +3,21 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { IAuth } from 'src/app/models/auth';
+import { CardService } from 'src/app/budgetify/budgetify/card/services/card.service';
+import { TransactionsService } from 'src/app/budgetify/budgetify/main/transactions/services/transactions.service';
+import { BudgetifyService } from 'src/app/budgetify/services/budgetify.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  authData: IAuth = {
-    email: '',
-    expiresIn: 0,
-    id: '',
-    role: '',
-    token: '',
-    country: '',
-  };
-  constructor(private http: HttpClient, private router: Router) {}
+  expiresIn: string | null | undefined;
+  
+  constructor(
+    private http: HttpClient,
+    private cardService: CardService,
+    private transactionsService: TransactionsService,  
+  ) {}
 
   login(email: string, password: string) {
     const body = new HttpParams().set('email', email).set('password', password);
@@ -36,9 +37,9 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    const expiresIn = localStorage.getItem('expiresIn');
-    if (expiresIn) {
-      return Math.round(Date.now()) < Number(expiresIn);
+    this.expiresIn = localStorage.getItem('expiresIn');
+    if (this.expiresIn) {
+      return Math.round(Date.now()) < Number(this.expiresIn);
     }
     return false;
   }
@@ -47,6 +48,9 @@ export class AuthService {
     localStorage.removeItem('expiresIn');
     localStorage.removeItem('idToken');
     localStorage.removeItem('id');
+    localStorage.removeItem('userCountry');
+    this.cardService.accountCards = [];
+    this.transactionsService.transactionsCards = [];
   }
 
   private setSession(res: IAuth) {
@@ -57,13 +61,7 @@ export class AuthService {
     localStorage.setItem('userCountry', res.country);
   }
 
-  sendData(element: IAuth) {
-    this.authData = element;
-    this.router.navigateByUrl('/budgetify/main');
-  }
 
-  getData() {
-    let temp = this.authData;
-    return temp.id;
-  }
+
+  
 }

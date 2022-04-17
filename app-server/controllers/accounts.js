@@ -37,6 +37,10 @@ async function getAllAccounts(req, res) {
   try {
     const decodedToken = jwt.verify(`${req.headers.authorization.split(' ')[1]}`, 'super_secret');
     const accounts = await Account.find({ userId: decodedToken.id });
+    if (accounts.length === 0 || accounts == null || accounts === false) {
+      res.status(400).json({message: 'Not found'});
+      return;
+    }
     res.status(200).json(accounts);
   } catch (err) {
     res.status(400).json(err);

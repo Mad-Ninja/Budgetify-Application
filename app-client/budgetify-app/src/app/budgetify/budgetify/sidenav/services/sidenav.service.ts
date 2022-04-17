@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { currencies } from 'currencies.json';
+
 import { ICurrency } from 'src/app/models/currency';
-import countriesJson from '../../../../../assets/countries.json';
+
 import { BudgetifyService } from 'src/app/budgetify/services/budgetify.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,23 +10,10 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class SidenavService {
-  public countries = countriesJson;
-  public currentUserCountry = this.countries.filter(
-    (obj) => obj.countryName == localStorage.getItem('userCountry')
-  );
-  public currentUserCode = this.currentUserCountry[0].currencyCode;
+ 
 
-  public currenciesMy: ICurrency[] = currencies.map((obj) => {
-    let result: ICurrency = {
-      name: '',
-      code: '',
-      symbolNative: '',
-    };
-    result.name = obj.name;
-    result.code = obj.code;
-    result.symbolNative = obj.symbolNative;
-    return result;
-  });
+
+
 
   isAccountInfo!: boolean;
   accountInfoTitle!: string;

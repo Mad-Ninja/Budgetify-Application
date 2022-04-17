@@ -5,6 +5,7 @@ import { UserModel } from 'src/app/models/user';
 import { BudgetifyService } from '../services/budgetify.service';
 import { AddBtnService } from './add-button/services/add-btn.service';
 import { CardService } from './card/services/card.service';
+import { TransactionsService } from './main/transactions/services/transactions.service';
 import { SidenavService } from './sidenav/services/sidenav.service';
 
 @Component({
@@ -16,12 +17,14 @@ export class BudgetifyComponent implements OnInit {
   authUserId: string = localStorage.getItem('id')!;
   showHeader!: boolean;
   @ViewChild('sidenavVariable') public myNav!: MatSidenav;
+  transactionService: any;
   constructor(
     private renderer: Renderer2,
     public budgetifyService: BudgetifyService,
     private cardService: CardService,
     private sidenavService: SidenavService,
     private addBtnService: AddBtnService,
+    private transactionsService: TransactionsService,
     private router: Router
   ) {
     this.cardService.componentMethodCalled$.subscribe(() => {
@@ -49,5 +52,6 @@ export class BudgetifyComponent implements OnInit {
     this.removeBodyClass();
     this.getUser(this.authUserId);
     console.log(this.budgetifyService.user.country)
+    
   }
 }

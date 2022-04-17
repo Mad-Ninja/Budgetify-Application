@@ -15,6 +15,24 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cardService.getAccounts().subscribe(() => {});
+    this.cardService.getAccounts().subscribe(
+      (data) => {
+        this.cardService.isAccounts = true;
+        this.cardService.accountCards = data;
+        this.transactionService
+          .getTransactions(this.cardService.accountCards[this.cardService.selectedIndex]._id)
+          .subscribe(
+            (data) => {
+              this.cardService.isTransactions = true;
+            },
+            (error) => {
+              this.cardService.isTransactions = false;
+            }
+          );
+      },
+      (error) => {
+        this.cardService.isAccounts = false;
+      }
+    );
   }
 }

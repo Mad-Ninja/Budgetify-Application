@@ -4,6 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { CardService } from '../card/services/card.service';
 import { SidenavService } from './services/sidenav.service';
 import { Toaster } from 'ngx-toast-notifications';
+import { BudgetifyService } from '../../services/budgetify.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -14,12 +15,13 @@ export class SidenavComponent implements OnInit {
   @ViewChild('formAddAccount') public formAA:any;
   addAccountForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
-    currency: new FormControl(this.sidenavService.currentUserCode, [
+    currency: new FormControl(this.budgetifyService.currentUserCurrenceCode, [
       Validators.required,
     ]),
     description: new FormControl(''),
   });
   constructor(
+    public budgetifyService: BudgetifyService,
     public sidenavService: SidenavService,
     private cardService: CardService,
     private toaster: Toaster
@@ -31,7 +33,7 @@ export class SidenavComponent implements OnInit {
 
   onSaveAccount() {
     const { title, currency, description } = this.addAccountForm.value;
-    const curr = this.sidenavService.currenciesMy.filter(
+    const curr = this.budgetifyService.currenciesMy.filter(
       (obj) => obj.name === currency
     )[0];
 
@@ -45,5 +47,8 @@ export class SidenavComponent implements OnInit {
       (error) => {}
     );
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.budgetifyService.currenciesMy)
+    console.log(this.budgetifyService.countries)
+  }
 }
