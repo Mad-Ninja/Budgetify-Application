@@ -13,17 +13,17 @@ describe('AuthService - testing', () => {
 
   let service: AuthService;
 
-  let cardServiceSpy: jasmine.SpyObj<CardService>;
-  let transactionsServiceSpy: jasmine.SpyObj<TransactionsService>;
+  let cardServiceMock: jasmine.SpyObj<CardService>;
+  let transactionsServiceMock: jasmine.SpyObj<TransactionsService>;
 
   beforeEach(() => {
-    const spyCard = jasmine.createSpyObj(
-      'cardServiceSpy',
+     cardServiceMock = jasmine.createSpyObj(
+      'CardService',
       {},
       { accountCards: [1,2,3] }
     );
-    const spyTransactions = jasmine.createSpyObj(
-      'transactionsServiceSpy',
+     transactionsServiceMock = jasmine.createSpyObj(
+      'TransactionsService',
       {},
       { transactionsCards: [1,2,3] }
     );
@@ -32,15 +32,15 @@ describe('AuthService - testing', () => {
       providers: [
         AuthService,
 
-        { provide: CardService, useValue: spyCard },
-        { provide: TransactionsService, useValue: spyTransactions },
+        { provide: CardService, useValue: cardServiceMock },
+        { provide: TransactionsService, useValue: transactionsServiceMock },
       ],
     });
     service = TestBed.inject(AuthService);
     httpController = TestBed.inject(HttpTestingController);
 
-    cardServiceSpy = TestBed.inject(CardService) as jasmine.SpyObj<CardService>;
-    transactionsServiceSpy = TestBed.inject(
+    cardServiceMock = TestBed.inject(CardService) as jasmine.SpyObj<CardService>;
+    transactionsServiceMock = TestBed.inject(
       TransactionsService
     ) as jasmine.SpyObj<TransactionsService>;
   });
@@ -72,15 +72,13 @@ describe('AuthService - testing', () => {
     req.flush(expectedResult);
   });
 
-  it('isLoggedIn return true'),()=>{
-    service.expiresIn = '36000000';
-    const result = service.isLoggedIn();
-    expect(result).toBe(true)
-  }
 
-  it('logout test'),()=>{
+  it('logout test',()=>{
+    localStorage.setItem('idToken', '323h3h23gh23h23ik3');
+    localStorage.setItem('expiresIn', '44848384348');
+    service.logOut();
+    expect(localStorage['expiresIn']).toBe(undefined);
+    expect(localStorage['idToken']).toBe(undefined);
     
-    expect(cardServiceSpy.accountCards).toBe([])
-    expect(transactionsServiceSpy.transactionsCards).toBe([])
-  }
+  })
 });
