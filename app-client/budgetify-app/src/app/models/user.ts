@@ -1,3 +1,5 @@
+import { ICategory } from "./categories"
+
 export interface UserModel {
     _id: string
     email: string
@@ -8,6 +10,6 @@ export interface UserModel {
     gender: string
     birth: string
     country: string
-    categories?: []
+    categories?: ICategory[]
     _v?: number
   }

@@ -2,9 +2,18 @@
   padding-top: 40px;
   padding-left: 34px;
   padding-right: 34px;
+  .validation-error{
+    margin-top: 15px;
+    position: absolute;
+    color: red;
+    font-size: 15px;
+  }
+  
 }
+
 .account-info,
-.account-add {
+.account-add,
+.account-edit {
   &__header {
     display: flex;
     justify-content: space-between;
@@ -56,8 +65,8 @@
     }
   }
 }
-.account-add {
-  .account-add__form {
+.account-add,.account-edit {
+  .account-add__form,.account-edit__form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,7 +74,9 @@
       background: rgb(234, 243, 245) !important;
     }
     mat-form-field {
+      position: relative;
       max-width: 500px;
+      margin-top: 30px;
       input,
       textarea,
       mat-select {

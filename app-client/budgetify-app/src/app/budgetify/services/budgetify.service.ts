@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user';
 import { currencies } from 'currencies.json';
 import { ICurrency } from 'src/app/models/currency';
+import { ICategory } from 'src/app/models/categories';
 import countriesJson from '../../../assets/countries.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BudgetifyService {
- 
   user: UserModel = {
     _id: '',
     email: '',
@@ -26,23 +26,23 @@ export class BudgetifyService {
   };
 
   public countries = countriesJson;
-  public currentUserCurrenceCode!:string;
-  public currenciesMy: ICurrency[] = currencies.map((obj) => {
-    let result: ICurrency = {
-      name: '',
-      code: '',
-      symbolNative: '',
-    };
-    result.name = obj.name;
-    result.code = obj.code;
-    result.symbolNative = obj.symbolNative;
-    return result;
-  });
+  public currentUserCurrenceCode!: string;
+  public currenciesMy!: ICurrency[];
 
-  
   constructor(private http: HttpClient, private router: Router) {}
 
-  findUserCurrenceCode(){
+  findUserCurrenceCode() {
+    this.currenciesMy = currencies.map((obj) => {
+      let result: ICurrency = {
+        name: '',
+        code: '',
+        symbolNative: '',
+      };
+      result.name = obj.name;
+      result.code = obj.code;
+      result.symbolNative = obj.symbolNative;
+      return result;
+    });
     const currentUserCountry = this.countries.filter(
       (obj) => obj.countryName == localStorage.getItem('userCountry')
     );

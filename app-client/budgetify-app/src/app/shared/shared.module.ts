@@ -12,6 +12,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [],
   imports: [
@@ -27,7 +29,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatTableModule,
     MatButtonToggleModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    ScrollingModule
   ],
   exports: [
     MatButtonModule,
@@ -40,7 +44,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatTableModule,
     MatButtonToggleModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    ScrollingModule
   ],
   providers: [MatDatepickerModule],
 })

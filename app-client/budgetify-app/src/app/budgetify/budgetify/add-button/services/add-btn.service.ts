@@ -7,14 +7,19 @@ import { SidenavService } from '../../sidenav/services/sidenav.service';
   providedIn: 'root'
 })
 export class AddBtnService {
+  isMainPage!:boolean;
+  isCategoryPage!:boolean;
   
   private componentMethodCallSource = new Subject<any>();
   componentMethodCalled$ = this.componentMethodCallSource.asObservable();
   constructor(private sidenavService: SidenavService, public budgetifyService: BudgetifyService) { }
 
   addAccountClick(){
-    console.log(this.budgetifyService.currentUserCurrenceCode)
     this.sidenavService.changeSidenavContent('isAccountAdd');
+    this.componentMethodCallSource.next(void 0);
+  }
+
+  addCategoryClick(){
     this.componentMethodCallSource.next(void 0);
   }
 }

@@ -9,30 +9,13 @@ import { CardService } from './services/card.service';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
+  
   constructor(
     public cardService: CardService,
     private transactionService: TransactionsService
   ) {}
 
   ngOnInit(): void {
-    this.cardService.getAccounts().subscribe(
-      (data) => {
-        this.cardService.isAccounts = true;
-        this.cardService.accountCards = data;
-        this.transactionService
-          .getTransactions(this.cardService.accountCards[this.cardService.selectedIndex]._id)
-          .subscribe(
-            (data) => {
-              this.cardService.isTransactions = true;
-            },
-            (error) => {
-              this.cardService.isTransactions = false;
-            }
-          );
-      },
-      (error) => {
-        this.cardService.isAccounts = false;
-      }
-    );
+    this.cardService.getAccounts()
   }
 }

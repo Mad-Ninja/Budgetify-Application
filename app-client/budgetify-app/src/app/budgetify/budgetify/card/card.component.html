@@ -1,26 +1,35 @@
 <div class="cards-wrapper">
-  <div
-    class="card-item"
-    *ngFor="let card of cardService.accountCards; let indexOfelement = index"
-    (click)="cardService.clickOnCard($event, indexOfelement)"
-    [ngClass]="{ active: indexOfelement === cardService.selectedIndex }"
+  <cdk-virtual-scroll-viewport
+    appendOnly
+    itemSize="50"
+    class="example-viewport"
   >
-    <p class="card-item__title">
-      {{
-        card.name.length > 16 ? (card.name | slice: 0:16) + '...' : card.name
-      }}
-    </p>
-    <p
-      class="card-item__currency"
-      [class.small-symbol]="card.currency.symbolNative === 'руб.'"
+    <div
+      class="card-item"
+      *cdkVirtualFor="
+        let card of cardService.accountCards;
+        let indexOfelement = index
+      "
+      (click)="cardService.clickOnCard($event, indexOfelement)"
+      [ngClass]="{ active: indexOfelement === cardService.selectedIndex }"
     >
-      {{ card.currency.symbolNative }}
-    </p>
-    <p class="card-item__amount">{{ card.amount }}</p>
-    <a
-      class="card-item__info-link"
-      (click)="cardService.clickOnMoreDetails($event, indexOfelement)"
-      >More Details</a
-    >
-  </div>
+      <p class="card-item__title">
+        {{
+          card.name.length > 16 ? (card.name | slice: 0:16) + '...' : card.name
+        }}
+      </p>
+      <p
+        class="card-item__currency"
+        [class.small-symbol]="card.currency.symbolNative.length >= 3"
+      >
+        {{ card.currency.symbolNative }}
+      </p>
+      <p class="card-item__amount">{{ card.amount }}</p>
+      <a
+        class="card-item__info-link"
+        (click)="cardService.clickOnMoreDetails($event, indexOfelement)"
+        >More Details</a
+      >
+    </div>
+  </cdk-virtual-scroll-viewport>
 </div>

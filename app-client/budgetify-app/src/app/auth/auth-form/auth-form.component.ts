@@ -15,8 +15,11 @@ export class AuthFormComponent {
     password: new FormControl('', [Validators.required]),
   });
 
+  get email() { return this.loginForm.get('email'); }
+  get password() { return this.loginForm.get('password'); }
+  
   errorMessage!: string;
-
+  hide = true;
   constructor(
     private authService: AuthService,
     private router: Router,

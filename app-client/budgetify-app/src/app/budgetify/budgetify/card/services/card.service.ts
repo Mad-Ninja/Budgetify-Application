@@ -14,6 +14,7 @@ export class CardService {
   isTransactions: boolean = false;
   isAccounts: boolean = false;
   selectedIndex = 0;
+  accountSelectedID!:string;
 
   private componentMethodCallSource = new Subject<any>();
   componentMethodCalled$ = this.componentMethodCallSource.asObservable();
@@ -26,8 +27,28 @@ export class CardService {
   ) {}
 
   getAccounts() {
-    return this.http.get<ICard[]>('http://localhost:3000/accounts');
+    this.http.get<ICard[]>('http://localhost:3000/accounts').subscribe(
+      (data) => {
+        this.isAccounts = true;
+        this.accountCards = data;
+        this.accountSelectedID = this.accountCards[this.selectedIndex]._id
+        this.transactionService
+          .getTransactions(this.accountSelectedID)
+          .subscribe(
+            (data) => {
+              this.isTransactions = true;
+            },
+            (error) => {
+              this.isTransactions = false;
+            }
+          );
+      },
+      (error) => {
+        this.isAccounts = false;
+      }
+    );;
   }
+
   clickOnCard(ev: any, index: any) {
     this.transactionService
       .getTransactions(this.accountCards[index]._id)
@@ -35,8 +56,10 @@ export class CardService {
         (data) => {
           this.isTransactions = true;
           this.selectedIndex = index;
+          this.accountSelectedID = this.accountCards[index]._id
         },
         (error) => {
+          this.accountSelectedID = this.accountCards[index]._id
           this.selectedIndex = index;
           this.isTransactions = false;
         }
@@ -47,8 +70,10 @@ export class CardService {
     this.sidenavService.changeSidenavContent('isAccountInfo');
     this.sidenavService.accountInfoTitle = this.accountCards[index].name;
     this.sidenavService.accountInfoBalance = this.accountCards[index].amount;
-    this.sidenavService.accountInfoCurrency =
+    this.sidenavService.accountInfoCurrencySymbol =
       this.accountCards[index].currency.symbolNative;
+    this.sidenavService.accountInfoCurrencyCode =
+      this.accountCards[index].currency.code;
     this.sidenavService.accountInfoDescription =
       this.accountCards[index].description;
     this.componentMethodCallSource.next(void 0);

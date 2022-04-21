@@ -5,8 +5,18 @@
         <h2>Account Information</h2>
       </div>
       <div class="account-info__btns">
-        <span class="material-icons account-info__edit"> edit </span>
-        <span class="material-icons account-info__delete"> delete </span>
+        <span
+          class="material-icons account-info__edit"
+          (click)="editAccountButton()"
+        >
+          edit
+        </span>
+        <span
+          class="material-icons account-info__delete"
+          (click)="openDialog()"
+        >
+          delete
+        </span>
         <span
           class="material-icons account-info__close"
           (click)="sidenavService.closeSidenav()"
@@ -27,7 +37,7 @@
         </li>
         <li>
           <div>Currency:</div>
-          <div>{{ sidenavService.accountInfoCurrency }}</div>
+          <div>{{ sidenavService.accountInfoCurrencyCode }}</div>
         </li>
         <li>
           <div>Description:</div>
@@ -51,18 +61,42 @@
         </span>
       </div>
     </div>
-    <div class="account-add">
+    <div class="account-add__form-container">
       <form
         class="account-add__form"
         [formGroup]="addAccountForm"
         (ngSubmit)="onSaveAccount(); formAddAccount.reset()"
         #formAddAccount
       >
-        <mat-form-field appearance="fill" class="title">
+        <mat-form-field appearance="outline" class="title">
           <mat-label>Title</mat-label>
-          <input matInput maxlength="128" formControlName="title" />
+          <input matInput formControlName="title" />
+          <div
+            *ngIf="title1?.invalid && (title1?.dirty || title1?.touched)"
+            class="alert alert-danger"
+          >
+            <div
+              class="field-message validation-error error-title"
+              *ngIf="title1?.errors?.['required']"
+            >
+              Title must be completed.
+            </div>
+            <div
+              class="field-message validation-error error-title"
+              *ngIf="title1?.errors?.['maxlength']"
+            >
+              Maximum number of characters 128.
+            </div>
+            <div
+              class="field-message validation-error error-title"
+              *ngIf="title1?.errors?.['uniqTitle']"
+            >
+              This title already exists.
+            </div>
+          </div>
         </mat-form-field>
-        <mat-form-field appearance="fill" class="currency">
+
+        <mat-form-field appearance="outline" class="currency">
           <mat-label>Currency</mat-label>
           <mat-select formControlName="currency">
             <mat-option
@@ -72,19 +106,118 @@
             >
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="fill" class="description">
+        <mat-form-field appearance="outline" class="description">
           <mat-label>Description</mat-label>
-          <textarea
-            matInput
-            maxlength="256"
-            formControlName="description"
-          ></textarea>
+          <textarea matInput formControlName="description"></textarea>
+          <div
+            *ngIf="
+              description1?.invalid &&
+              (description1?.dirty || description1?.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div
+              class="field-message validation-error error-describe"
+              *ngIf="description1?.errors?.['maxlength']"
+            >
+              Maximum number of characters 256.
+            </div>
+          </div>
         </mat-form-field>
         <button
           class="button"
           type="submit"
           color="primary"
           [disabled]="addAccountForm.invalid"
+          mat-raised-button
+        >
+          Save
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="account-edit" *ngIf="sidenavService.isAccountEdit">
+    <div class="account-edit__header">
+      <div>
+        <h2>Edit Account</h2>
+      </div>
+      <div class="account-edit__btns">
+        <span
+          class="material-icons account-info__close"
+          (click)="sidenavService.closeSidenav()"
+          (click)="formEditAccount.reset()"
+        >
+          close
+        </span>
+      </div>
+    </div>
+    <div class="account-edit__form-container">
+      <form
+        class="account-edit__form"
+        [formGroup]="editAccountForm"
+        (ngSubmit)="onEditAccount(); formEditAccount.reset()"
+        #formEditAccount
+      >
+        <mat-form-field appearance="outline" class="title">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+          <div
+            *ngIf="title2?.invalid && (title2?.dirty || title2?.touched)"
+            class="alert alert-danger"
+          >
+            <div
+              class="field-message validation-error error-title"
+              *ngIf="title2?.errors?.['required']"
+            >
+              Title must be completed.
+            </div>
+            <div
+              class="field-message validation-error error-title"
+              *ngIf="title2?.errors?.['maxlength']"
+            >
+              Maximum number of characters 128.
+            </div>
+            <div
+              class="field-message validation-error error-title"
+              *ngIf="title2?.errors?.['uniqTitle']"
+            >
+              This title already exists.
+            </div>
+          </div>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="currency">
+          <mat-label>Currency</mat-label>
+          <mat-select formControlName="currency">
+            <mat-option
+              *ngFor="let cur of budgetifyService.currenciesMy"
+              [value]="cur.code"
+              >{{ cur.name }}({{ cur.symbolNative }})</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="description">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+          <div
+            *ngIf="
+              description2?.invalid &&
+              (description2?.dirty || description1?.touched)
+            "
+            class="alert alert-danger"
+          >
+            <div
+              class="field-message validation-error error-describe"
+              *ngIf="description2?.errors?.['maxlength']"
+            >
+              Maximum number of characters 256.
+            </div>
+          </div>
+        </mat-form-field>
+        <button
+          class="button"
+          type="submit"
+          color="primary"
+          [disabled]="editAccountForm.invalid"
           mat-raised-button
         >
           Save

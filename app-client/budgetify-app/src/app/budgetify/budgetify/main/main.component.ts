@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AddBtnService } from '../add-button/services/add-btn.service';
 import { CardService } from '../card/services/card.service';
 @Component({
   selector: 'app-main',
@@ -7,7 +8,10 @@ import { CardService } from '../card/services/card.service';
 })
 export class MainComponent implements OnInit {
   add_button_titles = ['Add Add Transaction', 'Add account'];
-  constructor(public cardService: CardService) {}
+  constructor(public cardService: CardService, public addBtnService: AddBtnService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.addBtnService.isMainPage = true;
+    this.addBtnService.isCategoryPage = false;
+  }
 }

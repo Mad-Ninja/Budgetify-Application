@@ -5,18 +5,17 @@ import { Router } from '@angular/router';
 import { IAuth } from 'src/app/models/auth';
 import { CardService } from 'src/app/budgetify/budgetify/card/services/card.service';
 import { TransactionsService } from 'src/app/budgetify/budgetify/main/transactions/services/transactions.service';
-import { BudgetifyService } from 'src/app/budgetify/services/budgetify.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   expiresIn: string | null | undefined;
-  
+
   constructor(
     private http: HttpClient,
     private cardService: CardService,
-    private transactionsService: TransactionsService,  
+    private transactionsService: TransactionsService
   ) {}
 
   login(email: string, password: string) {
@@ -60,8 +59,4 @@ export class AuthService {
     localStorage.setItem('id', res.id);
     localStorage.setItem('userCountry', res.country);
   }
-
-
-
-  
 }

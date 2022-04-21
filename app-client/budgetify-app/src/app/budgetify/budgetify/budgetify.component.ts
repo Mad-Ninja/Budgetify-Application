@@ -36,6 +36,7 @@ export class BudgetifyComponent implements OnInit {
     this.addBtnService.componentMethodCalled$.subscribe(() => {
       this.myNav.open();
     });
+    
   }
 
   getUser(authUserId: string) {
@@ -51,7 +52,8 @@ export class BudgetifyComponent implements OnInit {
   ngOnInit(): void {
     this.removeBodyClass();
     this.getUser(this.authUserId);
-    console.log(this.budgetifyService.user.country)
+    this.budgetifyService.findUserCurrenceCode();
+    
     
   }
 }
