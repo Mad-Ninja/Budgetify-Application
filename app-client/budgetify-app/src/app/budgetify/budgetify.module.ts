@@ -18,6 +18,8 @@ import { StatisticComponent } from './budgetify/statistic/statistic.component';
 import { CategoriesComponent } from './budgetify/categories/categories.component';
 import { TransactionsFilterBtnComponent } from './budgetify/transactions-filter-btn/transactions-filter-btn.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AutoSizeInputModule} from 'ngx-autosize-input';
+import { CategoriesCardComponent } from './budgetify/categories-card/categories-card.component';
 
 const routes: Routes = [
   {
@@ -62,6 +64,7 @@ const routes: Routes = [
     StatisticComponent,
     CategoriesComponent,
     TransactionsFilterBtnComponent,
+    CategoriesCardComponent,
   ],
   imports: [
     CommonModule,
@@ -70,7 +73,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AutoSizeInputModule
   ],
 })
 export class BudgetifyModule {}

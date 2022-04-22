@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/', addAccount);
 
-router.put('/:id', editAccount);
+router.patch('/:id', editAccount);
 
 router.get('/', getAllAccounts);
 

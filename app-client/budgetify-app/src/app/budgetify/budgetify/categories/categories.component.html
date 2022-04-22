@@ -2,38 +2,10 @@
   <div class="content-wrapper">
     <app-search-field class="search-field__container"></app-search-field>
     <div class="categories-container">
-      <div
-        class="categories-card"
+      <app-categories-card
         *ngFor="let category of budgetifyService.user.categories"
-        [class.expense-category]="category.type === 'expense'"
-        [class.income-category]="category.type === 'income'"
-      >
-        <span
-          attr.contenteditable="{{ categoriesService.contenteditable }}"
-          class="input-category"
-          >{{ category.name }}</span
-        >
-
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example edit icon"
-          *ngIf="!categoriesService.editAction"
-          (click)="categoriesService.editClick()"
-          >edit</mat-icon
-        >
-
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example done icon"
-          *ngIf="categoriesService.editAction"
-          (click)="categoriesService.doneClick()"
-          >done</mat-icon
-        >
-
-        <mat-icon aria-hidden="false" aria-label="Example delete icon"
-          >delete</mat-icon
-        >
-      </div>
+        [category]="category"
+      ></app-categories-card>
     </div>
   </div>
   <div class="no-data__container" *ngIf="false">

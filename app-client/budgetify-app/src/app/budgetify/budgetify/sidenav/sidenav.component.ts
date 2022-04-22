@@ -18,12 +18,16 @@ import { ICard } from 'src/app/models/cards';
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent implements OnInit {
+  buttonCategTypeValueControl = new FormControl('expense');
+
   @ViewChild('formAddAccount') public formAA: any;
+
   addAccountForm: FormGroup = new FormGroup({
     title: new FormControl('', [
       Validators.required,
       Validators.maxLength(128),
       this.titleCardsUniqValidator.bind(this),
+      this.noWhitespaceValidator,
     ]),
     currency: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.maxLength(256)]),
@@ -34,9 +38,19 @@ export class SidenavComponent implements OnInit {
       Validators.required,
       Validators.maxLength(128),
       this.titleCardsUniqValidator.bind(this),
+      this.noWhitespaceValidator,
     ]),
     currency: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.maxLength(256)]),
+  });
+
+  addCategoryForm: FormGroup = new FormGroup({
+    title: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(128),
+      this.sidenavService.titleCategoriesUniqValidation.bind(this),
+      this.noWhitespaceValidator,
+    ]),
   });
 
   get title1() {
@@ -50,6 +64,9 @@ export class SidenavComponent implements OnInit {
   }
   get description2() {
     return this.editAccountForm.get('description');
+  }
+  get titleCat() {
+    return this.addCategoryForm.get('title');
   }
 
   constructor(
@@ -69,13 +86,24 @@ export class SidenavComponent implements OnInit {
     this.dialog.open(Popup);
   }
 
-  titleCardsUniqValidator(control: FormControl): { [key: string]: boolean } | null {
+  noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
+  }
+
+  titleCardsUniqValidator(
+    control: FormControl
+  ): { [key: string]: boolean } | null {
     const title = control.value;
-    if(title?.toLowerCase() === this.sidenavService.accountInfoTitle?.toLocaleLowerCase()){
+    if (
+      title?.toLowerCase() ===
+      this.sidenavService.accountInfoTitle?.toLocaleLowerCase()
+    ) {
       return null;
     }
     const isTitleExist = this.cardService.accountCards.some(
-      (card: ICard) =>  card.name?.toLowerCase() === title?.toLowerCase()
+      (card: ICard) => card.name?.toLowerCase() === title?.toLowerCase()
     );
     return isTitleExist ? { uniqTitle: true } : null;
   }
@@ -103,6 +131,7 @@ export class SidenavComponent implements OnInit {
     });
     this.sidenavService.changeSidenavContent('isAccountEdit');
   }
+
   onEditAccount() {
     const accountId = this.cardService.accountSelectedID;
     const { title, currency, description } = this.editAccountForm.value;
@@ -120,6 +149,25 @@ export class SidenavComponent implements OnInit {
         (error) => {}
       );
   }
+
+  onAddCategory() {
+    const { title } = this.addCategoryForm.value;
+    const catType = this.buttonCategTypeValueControl.value;
+    this.sidenavService.addCategory(title, catType).subscribe(
+      (data) => {
+        this.sidenavService.closeSidenav();
+        this.budgetifyService
+          .getUserData(localStorage.getItem('id')!)
+          .subscribe(
+            (data) => {},
+            (error) => {}
+          );
+        this.sidenavService.showToast('Category succesfuly created');
+      },
+      (error) => {}
+    );
+  }
+
   ngOnInit(): void {}
 }
 
@@ -144,6 +192,11 @@ export class Popup {
   }
   onDeleteAccount() {
     const accountId = this.cardService.accountSelectedID;
+    if (this.cardService.selectedIndex === 0) {
+      this.cardService.selectedIndex = 0;
+    } else {
+      this.cardService.selectedIndex--;
+    }
     this.sidenavService.deleteAccount(accountId).subscribe((data) => {
       this.sidenavService.closeSidenav();
       this.sidenavService.showToast('Account succesfuly deleted');

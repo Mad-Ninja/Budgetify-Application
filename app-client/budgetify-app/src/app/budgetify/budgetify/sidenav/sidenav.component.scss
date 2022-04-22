@@ -2,18 +2,55 @@
   padding-top: 40px;
   padding-left: 34px;
   padding-right: 34px;
-  .validation-error{
+  .validation-error {
     margin-top: 15px;
     position: absolute;
     color: red;
     font-size: 15px;
   }
-  
+}
+::ng-deep .mat-button-toggle-label-content{
+  display: flex !important; 
+  align-items:center;
+}
+mat-button-toggle-group {
+  margin-top: 40px;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 400px;
+
+  mat-button-toggle {
+    display: flex;
+    height: 49px;
+    width: 200px;
+    font-size: 25px;
+    line-height: 26px;
+    .expense-filter__button__icon,
+    .income-filter__button__icon {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 9px;
+      mat-icon {
+        color: #fff;
+      }
+    }
+    .expense-filter__button__icon {
+      background: #ee3f19;
+    }
+    .income-filter__button__icon {
+      background: #21c206;
+    }
+  }
 }
 
 .account-info,
 .account-add,
-.account-edit {
+.account-edit,
+.category-add {
   &__header {
     display: flex;
     justify-content: space-between;
@@ -65,8 +102,17 @@
     }
   }
 }
-.account-add,.account-edit {
-  .account-add__form,.account-edit__form {
+.category-add__form{
+  button{
+    margin-top: 50vh;
+  }
+}
+.account-add,
+.account-edit,
+.category-add {
+  .account-add__form,
+  .account-edit__form,
+  .category-add__form {
     display: flex;
     flex-direction: column;
     justify-content: center;

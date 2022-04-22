@@ -7,15 +7,9 @@ import { ICategory } from 'src/app/models/categories';
 })
 export class CategoriesService {
   public categories?:ICategory[]=  this.budgetifyService.user.categories;
-  editAction:boolean = false;
-  contenteditable:boolean = false;
+  
   constructor(public budgetifyService: BudgetifyService) { }
 
-  editClick(){
-    this.editAction = true;
-  }
-  doneClick(){
-    this.editAction = false;
-  }
+
 
 }

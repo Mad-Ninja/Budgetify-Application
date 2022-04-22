@@ -20,6 +20,7 @@ export class AddBtnService {
   }
 
   addCategoryClick(){
+    this.sidenavService.changeSidenavContent('isCategoryAdd');
     this.componentMethodCallSource.next(void 0);
   }
 }

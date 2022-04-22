@@ -44,6 +44,7 @@ export class CardService {
           );
       },
       (error) => {
+        this.accountCards = [];
         this.isAccounts = false;
       }
     );;
