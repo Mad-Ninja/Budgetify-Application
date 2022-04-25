@@ -20,6 +20,8 @@ import { TransactionsFilterBtnComponent } from './budgetify/transactions-filter-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AutoSizeInputModule} from 'ngx-autosize-input';
 import { CategoriesCardComponent } from './budgetify/categories-card/categories-card.component';
+import { OrderModule } from 'ngx-order-pipe';
+import { SearchTransactionPipe } from '../pipes/search-transaction.pipe';
 
 const routes: Routes = [
   {
@@ -65,6 +67,7 @@ const routes: Routes = [
     CategoriesComponent,
     TransactionsFilterBtnComponent,
     CategoriesCardComponent,
+    SearchTransactionPipe
   ],
   imports: [
     CommonModule,
@@ -74,7 +77,8 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AutoSizeInputModule
+    AutoSizeInputModule,
+    OrderModule
   ],
 })
 export class BudgetifyModule {}

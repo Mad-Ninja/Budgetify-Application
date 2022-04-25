@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable,  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { ITransaction } from 'src/app/models/transactions';
@@ -51,4 +51,6 @@ export class TransactionsService {
     this.sidenavService.transactionInfoDescription = this.transactionsCards[indexOfelement].description;
     this.componentMethodCallSource.next(void 0);
   }
+
+ 
 }

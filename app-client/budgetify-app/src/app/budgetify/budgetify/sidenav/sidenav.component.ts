@@ -367,9 +367,9 @@ export class SidenavComponent implements OnInit {
             .map((el) => el.toLowerCase())
             .includes(categoryName.toLowerCase())
         ) {
-          return true;
+          return false;
         }
-        return false;
+        return true;
       })
       .map((item) => {
         return { name: item, type: this.buttonCategTypeValueControl.value };
@@ -418,8 +418,10 @@ export class SidenavComponent implements OnInit {
           this.sidenavService.showToast('Transaction succesfuly created');
           if (type === 'Expenses') {
             this.cardService.accountCards[this.cardService.selectedIndex].amount -= amount;
+            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
           } else if (type === 'Income') {
-            this.cardService.accountCards[this.cardService.selectedIndex].amount += +amount;
+            this.cardService.accountCards[this.cardService.selectedIndex].amount += Number(amount);
+            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
           }
           this.sidenavService.editAccount(
             {
@@ -445,22 +447,22 @@ export class SidenavComponent implements OnInit {
     const newCategories: ICategory[] = this.categoriess
       .filter((categoryName) => {
         if (
-          !this.budgetifyService.user.categories
-            ?.filter(
+          this.budgetifyService.user.categories
+            .filter(
               (obj) => obj.type === this.buttonCategTypeValueControl.value
             )
             .map((obj) => obj.name)
             .map((el) => el.toLowerCase())
             .includes(categoryName.toLowerCase())
         ) {
-          return true;
+          return false;
         }
         return false;
       })
       .map((item) => {
         return { name: item, type: this.buttonCategTypeValueControl.value };
       });
-      if (newCategories) {
+      if (newCategories.length>0) {
         this.sidenavService.addCategory(newCategories).subscribe(
           (data) => {
             this.budgetifyService
@@ -502,10 +504,18 @@ export class SidenavComponent implements OnInit {
         (data) => {
           this.sidenavService.closeSidenav();
           this.sidenavService.showToast('Transaction succesfuly edited');
-          if (type === 'Expenses') {
-            this.cardService.accountCards[this.cardService.selectedIndex].amount += this.sidenavService.transactionInfoAmount - amount;
-          } else if (type === 'Income') {
-            this.cardService.accountCards[this.cardService.selectedIndex].amount -= this.sidenavService.transactionInfoAmount + amount;
+          if (type === 'Expenses' && this.sidenavService.transactionInfoType === 'Expenses') {
+            this.cardService.accountCards[this.cardService.selectedIndex].amount += this.sidenavService.transactionInfoAmount - Number(amount);
+            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
+          } else if (type === 'Income' && this.sidenavService.transactionInfoType === 'Income') {
+            this.cardService.accountCards[this.cardService.selectedIndex].amount = (this.cardService.accountCards[this.cardService.selectedIndex].amount - this.sidenavService.transactionInfoAmount) +  Number(amount) ;
+            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
+          } else if( type === 'Expenses' && this.sidenavService.transactionInfoType === 'Income'){
+            this.cardService.accountCards[this.cardService.selectedIndex].amount =  (this.cardService.accountCards[this.cardService.selectedIndex].amount - this.sidenavService.transactionInfoAmount)  - Number(amount);
+            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
+          } else if( type === 'Income' && this.sidenavService.transactionInfoType === 'Expenses'){
+            this.cardService.accountCards[this.cardService.selectedIndex].amount =  (this.cardService.accountCards[this.cardService.selectedIndex].amount + this.sidenavService.transactionInfoAmount)  + Number(amount);
+            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
           }
           this.sidenavService.editAccount(
             {
@@ -596,13 +606,15 @@ export class Popup {
       this.sidenavService.closeSidenav();
       this.sidenavService.showToast('Transaction succesfuly deleted');
       if (this.sidenavService.transactionInfoType === 'Expenses') {
-        this.cardService.accountCards[this.cardService.selectedIndex].amount += this.sidenavService.transactionInfoAmount;
+        this.cardService.accountCards[this.cardService.selectedIndex].amount += +this.sidenavService.transactionInfoAmount;
+        +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
       } else if (this.sidenavService.transactionInfoType === 'Income') {
         this.cardService.accountCards[this.cardService.selectedIndex].amount -= +this.sidenavService.transactionInfoAmount;
+        +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
       }
       this.sidenavService.editAccount(
         {
-          amount: this.cardService.accountCards[this.cardService.selectedIndex].amount,
+          amount: +this.cardService.accountCards[this.cardService.selectedIndex].amount,
         }
       ).subscribe(
         (data) => {},
