@@ -23,4 +23,9 @@ export class AddBtnService {
     this.sidenavService.changeSidenavContent('isCategoryAdd');
     this.componentMethodCallSource.next(void 0);
   }
+
+  addTransactionClick(){
+    this.sidenavService.changeSidenavContent('isTransactionAdd');
+    this.componentMethodCallSource.next(void 0);
+  }
 }

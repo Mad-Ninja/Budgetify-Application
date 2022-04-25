@@ -1,14 +1,14 @@
 <div class="budgetify__categories">
-  <div class="content-wrapper">
+  <div class="content-wrapper" *ngIf="categoriesService.isCategories">
     <app-search-field class="search-field__container"></app-search-field>
     <div class="categories-container">
       <app-categories-card
-        *ngFor="let category of budgetifyService.user.categories"
+        *ngFor="let category of categoriesService.categories"
         [category]="category"
       ></app-categories-card>
     </div>
   </div>
-  <div class="no-data__container" *ngIf="false">
+  <div class="no-data__container" *ngIf="!categoriesService.isCategories">
     You don't have any categories. Please create one.
   </div>
   <div class="side-buttons-container">

@@ -1,7 +1,7 @@
 .sidenav__aside-content {
   padding-top: 40px;
   padding-left: 34px;
-  padding-right: 34px;
+  padding-right: 15px;
   .validation-error {
     margin-top: 15px;
     position: absolute;
@@ -9,16 +9,21 @@
     font-size: 15px;
   }
 }
-::ng-deep .mat-button-toggle-label-content{
-  display: flex !important; 
-  align-items:center;
+::ng-deep .mat-button-toggle-label-content {
+  display: flex !important;
+  align-items: center;
 }
 mat-button-toggle-group {
   margin-top: 40px;
-  border: 2px solid black;
+  
   border-radius: 10px;
   width: 400px;
-
+  .mat-button-toggle-checked {
+	  box-shadow: 0 0 30px #000 !important;
+    border: 2px #000 solid !important;
+    border-radius: 10px !important;
+    background-color: #FFF !important;
+}
   mat-button-toggle {
     display: flex;
     height: 49px;
@@ -50,7 +55,10 @@ mat-button-toggle-group {
 .account-info,
 .account-add,
 .account-edit,
-.category-add {
+.category-add,
+.transaction-info,
+.transaction-add,
+.transaction-edit {
   &__header {
     display: flex;
     justify-content: space-between;
@@ -72,10 +80,12 @@ mat-button-toggle-group {
     }
   }
 }
-.account-info {
+.account-info,
+.transaction-info {
   &__list {
     ul {
       li {
+        width: 531px;
         font-size: 20px;
         list-style: none;
         display: flex;
@@ -91,28 +101,118 @@ mat-button-toggle-group {
           }
         }
         div {
+          word-break: break-all;
           line-height: 26px;
+          width: 300px;
           &:nth-child(1) {
-            width: 80px;
+            width: 150px;
             font-weight: 700;
-            margin-right: 120px;
+            margin-right: 50px;
           }
         }
       }
     }
   }
 }
-.category-add__form{
-  button{
+
+.transaction-info {
+  .expense-amount {
+    color: #ee3f19 !important;
+    &:before {
+      content: '-';
+    }
+  }
+  .transaction-item__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mat-icon {
+      width: 30px;
+      height: 30px;
+      font-size: 30px;
+      color: #fff;
+    }
+  }
+  
+  .amount-container{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    .transaction-item__type{
+      display: flex;
+      align-items: center;
+      .type-name-transaction{
+        margin-left: 10px;
+        font-size: 30px;
+        font-weight: bold;
+      }
+    }
+    .amount__text{
+      color: #21c206;
+      font-size: 40px;
+    }
+    
+    
+  }
+  &__title{
+    margin-top: 40px;
+    font-size: 30px;
+    word-break: break-all;
+    margin-bottom: 30px;
+  }
+  .transaction-info-category{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    
+  }
+  .transaction-item__category {
+    margin-right: 20px;
+    margin-bottom: 15px;
+    padding: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 157px;
+    height: 65px;
+    text-align: center;
+    color: #000;
+    border:2px solid #000;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .expense-icon {
+    background: #ee3f19;
+  }
+  .income-icon {
+    background: #21c206;
+  }
+  .expense-amount {
+    color: #ee3f19;
+  }
+}
+.category-add__form {
+  button {
     margin-top: 50vh;
   }
 }
 .account-add,
 .account-edit,
-.category-add {
+.category-add,
+.transaction-add,
+.transaction-edit {
   .account-add__form,
   .account-edit__form,
-  .category-add__form {
+  .category-add__form,
+  .transaction-add__form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -138,8 +238,24 @@ mat-button-toggle-group {
       }
     }
     .button {
+      max-width: 500px;
       height: 40px;
       font-size: 20px;
     }
   }
+}
+.transaction-add__form{
+  mat-form-field{
+    margin-bottom: -35px !important;
+    textarea{
+      height: 7rem !important;
+    }
+  }
+  .button{
+    margin-top: 50px;
+  }
+}
+
+input.ng-invalid.ng-touched {
+  border: red;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { CardService } from '../card/services/card.service';
 import { AddBtnService } from './services/add-btn.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { AddBtnService } from './services/add-btn.service';
 })
 export class AddButtonComponent implements OnInit {
 
-  constructor(public addBtnService: AddBtnService) {}
+  constructor(public addBtnService: AddBtnService, public cardService: CardService) {}
 
   ngOnInit(): void {}
 }

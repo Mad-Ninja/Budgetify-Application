@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StatisticService } from './services/statistic.service';
-
+import {FormGroup, FormControl} from '@angular/forms';
+import { CardService } from '../card/services/card.service';
 @Component({
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
@@ -11,7 +12,12 @@ export class StatisticComponent implements OnInit {
   isShowCategories: boolean = true;
   isShowMonthly: boolean = false;
 
-  constructor(public statisticService: StatisticService) {}
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+
+  constructor(public statisticService: StatisticService,public cardService: CardService) {}
 
   //Cetegories table
   displayedColumnsCategories: string[] = ['category', 'amount', 'total'];

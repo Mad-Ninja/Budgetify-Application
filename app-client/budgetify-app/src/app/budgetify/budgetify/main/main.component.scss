@@ -1,5 +1,4 @@
 .content-wrapper {
-  margin-left: 1rem;
   margin-top: 40px;
 }
 .no-data__container{
@@ -9,6 +8,10 @@
   line-height: 60px;
   text-align: center;
   margin-top: 10rem;
+}
+.no-data__accounts{
+  position: relative;
+  right: 18%;
 }
 
 .side-buttons-container {

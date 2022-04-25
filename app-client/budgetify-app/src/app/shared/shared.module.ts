@@ -14,6 +14,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [],
   imports: [
@@ -31,7 +33,9 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatListModule,
     MatSelectModule,
     MatDialogModule,
-    ScrollingModule
+    MatChipsModule,
+    ScrollingModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatButtonModule,
@@ -46,7 +50,9 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatListModule,
     MatSelectModule,
     MatDialogModule,
-    ScrollingModule
+    MatChipsModule,
+    ScrollingModule,
+    MatAutocompleteModule
   ],
   providers: [MatDatepickerModule],
 })

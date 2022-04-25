@@ -1,3 +1,11 @@
+.no-data__container{
+  width: 40rem;
+  height: 300px;
+  font-size: 50px;
+  line-height: 60px;
+  text-align: center;
+  margin-top: 10rem;
+}
 .budgetify__statistic {
   display: flex;
   .budgetify__statistic-content {
@@ -9,6 +17,12 @@
         border: none;
         border-radius: 10px;
       }
+      .mat-button-toggle-checked {
+        box-shadow: 0 0 30px #000 !important;
+        border: 2px #000 solid !important;
+        border-radius: 10px !important;
+        background-color: #FFF !important;
+    }
       .statistic-btns__categories,
       .statistic-btns__montly {
         height: 49px;

@@ -5,6 +5,7 @@ import { UserModel } from 'src/app/models/user';
 import { BudgetifyService } from '../services/budgetify.service';
 import { AddBtnService } from './add-button/services/add-btn.service';
 import { CardService } from './card/services/card.service';
+import { CategoriesService } from './categories/services/categories.service';
 import { TransactionsService } from './main/transactions/services/transactions.service';
 import { SidenavService } from './sidenav/services/sidenav.service';
 
@@ -25,9 +26,13 @@ export class BudgetifyComponent implements OnInit {
     private sidenavService: SidenavService,
     private addBtnService: AddBtnService,
     private transactionsService: TransactionsService,
+    private categoriesService: CategoriesService,
     private router: Router
   ) {
     this.cardService.componentMethodCalled$.subscribe(() => {
+      this.myNav.open();
+    });
+    this.transactionsService.componentMethodCalled$.subscribe(() => {
       this.myNav.open();
     });
     this.sidenavService.componentMethodCalled$.subscribe(() => {
@@ -42,6 +47,8 @@ export class BudgetifyComponent implements OnInit {
   getUser(authUserId: string) {
     this.budgetifyService.getUserData(authUserId).subscribe((userData) => {
       this.showHeader = true;
+
+
     });
   }
 

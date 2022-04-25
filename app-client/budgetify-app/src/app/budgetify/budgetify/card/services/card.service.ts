@@ -32,6 +32,7 @@ export class CardService {
         this.isAccounts = true;
         this.accountCards = data;
         this.accountSelectedID = this.accountCards[this.selectedIndex]._id
+        this.sidenavService.accountId = this.accountSelectedID;
         this.transactionService
           .getTransactions(this.accountSelectedID)
           .subscribe(
@@ -51,17 +52,16 @@ export class CardService {
   }
 
   clickOnCard(ev: any, index: any) {
+    this.selectedIndex = index;
+    this.accountSelectedID = this.accountCards[index]._id;
+    this.sidenavService.accountId = this.accountSelectedID;
     this.transactionService
       .getTransactions(this.accountCards[index]._id)
       .subscribe(
         (data) => {
-          this.isTransactions = true;
-          this.selectedIndex = index;
-          this.accountSelectedID = this.accountCards[index]._id
+          this.isTransactions = true;  
         },
         (error) => {
-          this.accountSelectedID = this.accountCards[index]._id
-          this.selectedIndex = index;
           this.isTransactions = false;
         }
       );

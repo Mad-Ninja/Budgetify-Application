@@ -7,6 +7,7 @@ import { currencies } from 'currencies.json';
 import { ICurrency } from 'src/app/models/currency';
 import { ICategory } from 'src/app/models/categories';
 import countriesJson from '../../../assets/countries.json';
+import { CategoriesService } from '../budgetify/categories/services/categories.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,11 @@ export class BudgetifyService {
   public currentUserCurrenceCode!: string;
   public currenciesMy!: ICurrency[];
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private categoriesService: CategoriesService
+  ) {}
 
   findUserCurrenceCode() {
     this.currenciesMy = currencies.map((obj) => {
@@ -55,6 +60,13 @@ export class BudgetifyService {
       .pipe(
         tap((res: UserModel) => {
           this.user = res;
+          this.categoriesService.categories =
+            this.user.categories;
+          if (this.categoriesService.categories.length > 0) {
+            this.categoriesService.isCategories = true;
+          } else {
+            this.categoriesService.isCategories = false;
+          }
         })
       );
   }

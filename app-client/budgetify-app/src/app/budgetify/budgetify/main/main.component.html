@@ -7,7 +7,10 @@
     <app-search-field class="search-field__container"></app-search-field>
     <app-transactions></app-transactions>
   </div>
-  <div *ngIf="!cardService.isAccounts" class="no-data__container">
+  <div
+    *ngIf="!cardService.isAccounts"
+    class="no-data__container no-data__accounts"
+  >
     <p>You don't have any account. Please create one.</p>
   </div>
   <div
