@@ -49,6 +49,7 @@ export class AuthService {
     localStorage.removeItem('id');
     localStorage.removeItem('userCountry');
     this.cardService.accountCards = [];
+    this.cardService.selectedIndex = 0;
     this.transactionsService.transactionsCards = [];
   }
 

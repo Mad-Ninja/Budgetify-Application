@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  addTransaction, editTransaction, getAllTransactions, getTransaction, deleteTransaction,
+  addTransaction, editTransaction, getAllTransactions, getTransaction, deleteTransaction
 } from '../controllers/transactions.js';
 
 const router = express.Router();

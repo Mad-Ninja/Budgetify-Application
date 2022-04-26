@@ -274,7 +274,7 @@ export class SidenavComponent implements OnInit {
     this.sidenavService.addAccount(title, curr, description).subscribe(
       (data) => {
         this.sidenavService.closeSidenav();
-        this.sidenavService.showToast('Account succesfuly created');
+        this.sidenavService.showToast('Account succesfuly created', 'success');
         this.cardService.getAccounts();
       },
       (error) => {}
@@ -324,7 +324,7 @@ export class SidenavComponent implements OnInit {
     this.sidenavService.editAccount(editedAccount).subscribe(
       (data) => {
         this.sidenavService.closeSidenav();
-        this.sidenavService.showToast('Account succesfuly edited');
+        this.sidenavService.showToast('Account succesfuly edited', 'success');
         this.cardService.getAccounts();
       },
       (error) => {}
@@ -349,7 +349,7 @@ export class SidenavComponent implements OnInit {
             (data) => {},
             (error) => {}
           );
-        this.sidenavService.showToast('Category succesfuly created');
+        this.sidenavService.showToast('Category succesfuly created', 'success');
       },
       (error) => {}
     );
@@ -384,7 +384,7 @@ export class SidenavComponent implements OnInit {
               (data) => {},
               (error) => {}
             );
-          this.sidenavService.showToast('Category succesfuly created');
+          this.sidenavService.showToast('Category succesfuly created', 'success');
         },
         (error) => {}
       );
@@ -415,7 +415,7 @@ export class SidenavComponent implements OnInit {
       .subscribe(
         (data) => {
           this.sidenavService.closeSidenav();
-          this.sidenavService.showToast('Transaction succesfuly created');
+          this.sidenavService.showToast('Transaction succesfuly created', 'success');
           if (type === 'Expenses') {
             this.cardService.accountCards[this.cardService.selectedIndex].amount -= amount;
             +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
@@ -425,7 +425,7 @@ export class SidenavComponent implements OnInit {
           }
           this.sidenavService.editAccount(
             {
-              amount: this.cardService.accountCards[this.cardService.selectedIndex].amount,
+              amount:  +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2),
             }
           ).subscribe(
             (data) => {},
@@ -471,7 +471,7 @@ export class SidenavComponent implements OnInit {
                 (data) => {},
                 (error) => {}
               );
-            this.sidenavService.showToast('Category succesfuly created');
+            this.sidenavService.showToast('Category succesfuly created', 'success');
           },
           (error) => {}
         );
@@ -503,7 +503,7 @@ export class SidenavComponent implements OnInit {
       .subscribe(
         (data) => {
           this.sidenavService.closeSidenav();
-          this.sidenavService.showToast('Transaction succesfuly edited');
+          this.sidenavService.showToast('Transaction succesfuly edited', 'success');
           if (type === 'Expenses' && this.sidenavService.transactionInfoType === 'Expenses') {
             this.cardService.accountCards[this.cardService.selectedIndex].amount += this.sidenavService.transactionInfoAmount - Number(amount);
             +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
@@ -595,7 +595,7 @@ export class Popup {
     }
     this.sidenavService.deleteAccount(accountId).subscribe((data) => {
       this.sidenavService.closeSidenav();
-      this.sidenavService.showToast('Account succesfuly deleted');
+      this.sidenavService.showToast('Account succesfuly deleted', 'success');
       this.cardService.getAccounts();
     });
   }
@@ -604,7 +604,7 @@ export class Popup {
     const transactionId = this.sidenavService.transactionId;
     this.sidenavService.deleteTransaction().subscribe((data) => {
       this.sidenavService.closeSidenav();
-      this.sidenavService.showToast('Transaction succesfuly deleted');
+      this.sidenavService.showToast('Transaction succesfuly deleted', 'success');
       if (this.sidenavService.transactionInfoType === 'Expenses') {
         this.cardService.accountCards[this.cardService.selectedIndex].amount += +this.sidenavService.transactionInfoAmount;
         +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);

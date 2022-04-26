@@ -1,4 +1,4 @@
-.no-data__container{
+.no-data__container {
   width: 40rem;
   height: 300px;
   font-size: 50px;
@@ -21,8 +21,8 @@
         box-shadow: 0 0 30px #000 !important;
         border: 2px #000 solid !important;
         border-radius: 10px !important;
-        background-color: #FFF !important;
-    }
+        background-color: #fff !important;
+      }
       .statistic-btns__categories,
       .statistic-btns__montly {
         height: 49px;
@@ -65,7 +65,22 @@
         border: none;
       }
     }
+    .total-expenses__output {
+      input {
+        padding-left: 15px;
+        color: #000;
+        padding-top: 10px;
+        font-size: 30px;
+      }
+    }
     .statistic-table__categories {
+      width: 500px;
+      .mat-elevation-z8 {
+        width: 500px;
+        ng-container{
+          margin-left: 20px;
+        }
+      }
       mat-header-cell {
         font-size: 20px;
         color: #000;

@@ -1,10 +1,27 @@
 <div class="budgetify__categories">
   <div class="content-wrapper" *ngIf="categoriesService.isCategories">
-    <app-search-field class="search-field__container"></app-search-field>
+    <div role="search" class="search-field_wrapper">
+      <label for="search">Search for stuff</label>
+      <input
+        id="search"
+        type="search"
+        placeholder="Search..."
+        autofocus
+        required
+        [(ngModel)]="search"
+      />
+      <button type="submit">Go</button>
+    </div>
     <div class="categories-container">
       <app-categories-card
-        *ngFor="let category of categoriesService.categories"
+        *ngFor="
+          let category of categoriesService.categories
+            | searchCategories: search
+            | filterCategories: categoriesService.filter;
+          let indexOfelement = index
+        "
         [category]="category"
+        [indexOfelement]="indexOfelement"
       ></app-categories-card>
     </div>
   </div>

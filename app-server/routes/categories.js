@@ -11,6 +11,6 @@ router.patch('/:id', editCategory);
 
 router.get('/', getCategory);
 
-router.delete('/:id', deleteCategory);
+router.delete('/:name/:type', deleteCategory);
 
 export default router;

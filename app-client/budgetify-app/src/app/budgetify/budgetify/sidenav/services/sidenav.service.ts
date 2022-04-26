@@ -52,10 +52,10 @@ export class SidenavService {
     private toaster: Toaster
   ) {}
 
-  showToast(text: string) {
+  showToast(textin: string , typein:any) {
     this.toaster.open({
-      text: text,
-      type: 'success',
+      text: textin,
+      type: typein,
       duration: 5000,
       position: 'top-center',
     });

@@ -22,7 +22,8 @@
     style="margin-bottom: 25px"
     *cdkVirtualFor="
       let transaction of transactionService.transactionsCards
-        | searchTransaction: search;
+        | searchTransaction: search
+        | filterTransactions: transactionService.filter;
       let indexOfelement = index
     "
   >

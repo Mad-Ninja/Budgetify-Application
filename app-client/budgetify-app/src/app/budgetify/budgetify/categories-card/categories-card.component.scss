@@ -1,3 +1,8 @@
+.no-actions{
+  pointer-events: none;
+  cursor: default;
+  opacity:.5;
+}
 .categories-card {
     margin-left: 20px;
     margin-bottom: 20px;
@@ -5,6 +10,9 @@
     display: inline-block;
     height: 57px;
     border-radius:10px;
+    form{
+      display: inline-block;
+    }
     mat-icon{
       display:relative;
       margin-top:15px;

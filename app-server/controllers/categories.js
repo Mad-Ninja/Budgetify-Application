@@ -18,7 +18,7 @@ async function editCategory(req, res) {
   try {
     const decodedToken = jwt.verify(`${req.headers.authorization.split(' ')[1]}`, 'super_secret');
     const user = await User.updateOne(
-      { _id: decodedToken.id, "categories.name": req.params.id }, 
+      { _id: decodedToken.id, "categories.name": req.params.id, type: req.body.type }, 
       {$set:{ "categories.$.name": req.body.name} }
     );
     res.status(200).json({ message: 'Category edited' });
@@ -55,7 +55,7 @@ async function deleteCategory(req, res) {
     const decodedToken = jwt.verify(`${req.headers.authorization.split(' ')[1]}`, 'super_secret');
     const user = await User.updateOne(
       { "_id": decodedToken.id },
-      { $pull: { categories: { name: req.params.id } } },
+      { $pull: { categories: { name: req.params.name, type: req.params.type } } },
     );
     res.status(200).json({ message: 'Category deleted' });
   } catch (err) {

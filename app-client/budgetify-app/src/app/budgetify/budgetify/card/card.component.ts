@@ -16,6 +16,6 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cardService.getAccounts()
+    this.cardService.getAccounts();
   }
 }

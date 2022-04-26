@@ -41,12 +41,14 @@
           placeholder="Start date"
           class="start-date"
           formControlName="start"
+          (dateInput)="selectDateEnd()"
         />
         <input
           matEndDate
           placeholder="End date"
           class="end-date"
           formControlName="end"
+          (dateInput)="selectDateEnd()"
         />
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -58,12 +60,15 @@
         <form class="example-form">
           <mat-form-field class="example-full-width">
             <mat-label>Total Expenses</mat-label>
-            <input matInput #message disabled />
+            <input matInput #message disabled [value]="totalExpensesSum" />
           </mat-form-field>
         </form>
       </div>
       <div class="statistic-table__categories">
-        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <mat-table
+          [dataSource]="statisticService.CATEGORIES_STATISTIC"
+          class="mat-elevation-z8"
+        >
           <ng-container matColumnDef="category">
             <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
             <mat-cell *matCellDef="let element">
@@ -73,13 +78,17 @@
           <ng-container matColumnDef="amount">
             <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
             <mat-cell *matCellDef="let element">
-              {{ element.amount }}
+              {{ element.amount
+              }}{{
+                cardService.accountCards[this.cardService.selectedIndex]
+                  .currency.symbolNative
+              }}
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="total">
             <mat-header-cell *matHeaderCellDef> % in total </mat-header-cell>
             <mat-cell *matCellDef="let element">
-              {{ element.total }}
+              {{ element.total }}%
             </mat-cell>
           </ng-container>
 

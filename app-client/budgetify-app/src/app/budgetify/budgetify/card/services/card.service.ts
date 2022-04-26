@@ -17,7 +17,9 @@ export class CardService {
   accountSelectedID!:string;
 
   private componentMethodCallSource = new Subject<any>();
+  public componentMethodCallSource1 = new Subject<any>();
   componentMethodCalled$ = this.componentMethodCallSource.asObservable();
+  componentMethodCalled1$ = this.componentMethodCallSource1.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -60,11 +62,13 @@ export class CardService {
       .subscribe(
         (data) => {
           this.isTransactions = true;  
+          this.componentMethodCallSource1.next(void 0); 
         },
         (error) => {
           this.isTransactions = false;
         }
       );
+       
   }
   clickOnMoreDetails(event: any, index: any) {
     event.stopPropagation();

@@ -7,8 +7,7 @@ import { TransactionsService } from '../main/transactions/services/transactions.
   styleUrls: ['./search-field.component.scss'],
 })
 export class SearchFieldComponent implements OnInit {
-  @Input() search:string=''
+  
   constructor(public transactionService: TransactionsService) {}
-
   ngOnInit(): void {}
 }

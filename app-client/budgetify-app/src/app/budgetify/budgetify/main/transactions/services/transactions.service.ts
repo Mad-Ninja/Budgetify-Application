@@ -9,6 +9,7 @@ import { SidenavService } from '../../../sidenav/services/sidenav.service';
   providedIn: 'root',
 })
 export class TransactionsService {
+  filter:string='';
   public transactionsCards: ITransaction[] = [];
   selectedIndex = 0;
   transactionSelectedID:string;

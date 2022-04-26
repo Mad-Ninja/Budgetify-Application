@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 interface CategoriesStatistic {
   category: string;
-  amount: string;
-  total: string;
+  amount: number;
+  total: number;
 }
 interface MonthlyStatistic {
   month: string;
@@ -17,23 +17,7 @@ interface MonthlyStatistic {
   providedIn: 'root',
 })
 export class StatisticService {
-  CATEGORIES_STATISTIC: CategoriesStatistic[] = [
-    {
-      category: 'Food',
-      amount: '25$',
-      total: '30%',
-    },
-    {
-      category: 'House',
-      amount: '25$',
-      total: '30%',
-    },
-    {
-      category: 'Family',
-      amount: '25$',
-      total: '30%',
-    },
-  ];
+  CATEGORIES_STATISTIC: CategoriesStatistic[] = [];
 
   MONTHLY_STATISTIC: MonthlyStatistic[] = [
     {

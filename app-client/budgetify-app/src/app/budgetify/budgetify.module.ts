@@ -22,6 +22,9 @@ import {AutoSizeInputModule} from 'ngx-autosize-input';
 import { CategoriesCardComponent } from './budgetify/categories-card/categories-card.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { SearchTransactionPipe } from '../pipes/search-transaction.pipe';
+import { SearchCategoriesPipe } from '../pipes/search-categories.pipe';
+import { FilterTransactionsPipe } from '../pipes/transaction-filter.pipe';
+import { FilterCategoriesPipe } from '../pipes/categories-filter.pipe';
 
 const routes: Routes = [
   {
@@ -67,7 +70,10 @@ const routes: Routes = [
     CategoriesComponent,
     TransactionsFilterBtnComponent,
     CategoriesCardComponent,
-    SearchTransactionPipe
+    SearchTransactionPipe,
+    SearchCategoriesPipe,
+    FilterTransactionsPipe,
+    FilterCategoriesPipe
   ],
   imports: [
     CommonModule,
