@@ -3,8 +3,12 @@ import mongoose from 'mongoose';
 const accountSchema = new mongoose.Schema({
   _id: String,
   name: String,
-  amount: Number,
-  currency: String,
+  amount: { type: Number, default: 0 },
+  currency: {
+    name: String,
+    code: String,
+    symbolNative: String,
+  },
   description: String,
   userId: {
     type: String,

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 interface CategoriesStatistic {
   category: string;
-  amount: string;
-  total: string;
+  amount: number;
+  total: number;
 }
 interface MonthlyStatistic {
   month: string;
@@ -17,71 +17,45 @@ interface MonthlyStatistic {
   providedIn: 'root',
 })
 export class StatisticService {
-  CATEGORIES_STATISTIC: CategoriesStatistic[] = [
-    {
-      category: 'Food',
-      amount: '25$',
-      total: '30%',
-    },
-    {
-      category: 'House',
-      amount: '25$',
-      total: '30%',
-    },
-    {
-      category: 'Family',
-      amount: '25$',
-      total: '30%',
-    },
-  ];
+  CATEGORIES_STATISTIC: CategoriesStatistic[] = [];
 
-  MONTHLY_STATISTIC: MonthlyStatistic[] = [
-    {
-      month: 'January 2021',
-      income: 30,
-      expense: 10,
-      economy: 20,
-      percentOfEconomy: 66.6,
-    },
-    {
-      month: 'February 2021',
-      income: 30,
-      expense: 10,
-      economy: 20,
-      percentOfEconomy: 66.6,
-    },
-    {
-      month: 'March 2021',
-      income: 30,
-      expense: 10,
-      economy: 20,
-      percentOfEconomy: 66.6,
-    },
-  ];
+
+
+  totalIncome:number;
+  totalExpense:number;
+  totalEconomy:number;
+
+  MONTHLY_STATISTIC: MonthlyStatistic[] = [];
+
+
+  
   constructor() {}
 
   getTotalIncome() {
-    return this.MONTHLY_STATISTIC.map((t) => t.income).reduce(
+   const total = this.MONTHLY_STATISTIC.map((t) => t.income).reduce(
       (acc, value) => acc + value,
       0
     );
+    this.totalIncome = total;
+    return total;
   }
   getTotalExpenses() {
-    return this.MONTHLY_STATISTIC.map((t) => t.expense).reduce(
+    const total = this.MONTHLY_STATISTIC.map((t) => t.expense).reduce(
       (acc, value) => acc + value,
       0
     );
+    this.totalExpense = total;
+    return total;
   }
   getTotalEconomy() {
-    return this.MONTHLY_STATISTIC.map((t) => t.economy).reduce(
+    const total=  this.MONTHLY_STATISTIC.map((t) => t.economy).reduce(
       (acc, value) => acc + value,
       0
-    );
+    ); 
+    this.totalEconomy = total;
+    return total;
   }
   getTotalPercentOfEconomy() {
-    return this.MONTHLY_STATISTIC.map((t) => t.percentOfEconomy).reduce(
-      (acc, value) => acc + value,
-      0
-    );
+    return this.totalEconomy*100/this.totalIncome
   }
 }

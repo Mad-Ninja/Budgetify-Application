@@ -11,6 +11,16 @@ $cardcolor: linear-gradient(
   rgba(185, 15, 96, 0.5) 35%,
   rgba(0, 212, 255, 0.5) 100% 
 );
+.example-viewport {
+  height: 100%;
+  width: 500px;
+  &::-webkit-scrollbar { 
+    display: none; 
+}
+  
+}
+
+
 .active {
   background: $cardcolor-active !important;
   .card-item__info-link{
@@ -20,9 +30,12 @@ $cardcolor: linear-gradient(
 .cards-wrapper {
   display: flex;
   flex-direction: column;
+  height: 87vh;
   
 }
 .card-item {
+  margin-left: 30px;
+  margin-bottom: 30px;
   -webkit-box-shadow: -2px 4px 10px 8px rgba(34, 60, 80, 0.33);
   -moz-box-shadow: -2px 4px 10px 8px rgba(34, 60, 80, 0.33);
   box-shadow: -2px 4px 10px 8px rgba(34, 60, 80, 0.33);
@@ -76,4 +89,7 @@ $cardcolor: linear-gradient(
     margin-left: 65%;
     bottom: 15px;
   }
+}
+.small-symbol{
+  font-size: 45px;
 }

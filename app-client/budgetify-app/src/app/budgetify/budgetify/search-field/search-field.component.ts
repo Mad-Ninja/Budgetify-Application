@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { TransactionsService } from '../main/transactions/services/transactions.service';
 
 @Component({
   selector: 'app-search-field',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-field.component.scss'],
 })
 export class SearchFieldComponent implements OnInit {
-  constructor() {}
-
+  
+  constructor(public transactionService: TransactionsService) {}
   ngOnInit(): void {}
 }

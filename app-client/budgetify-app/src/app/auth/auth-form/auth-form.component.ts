@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BudgetifyService } from 'src/app/budgetify/services/budgetify.service';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -14,19 +15,25 @@ export class AuthFormComponent {
     password: new FormControl('', [Validators.required]),
   });
 
+  get email() { return this.loginForm.get('email'); }
+  get password() { return this.loginForm.get('password'); }
+  
   errorMessage!: string;
-
+  hide = true;
   constructor(
     private authService: AuthService,
     private router: Router,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private budgetifyService: BudgetifyService
   ) {}
 
   onSubmit() {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe(
       (data) => {
-        this.authService.sendData(data);
+       
+        this.budgetifyService.findUserCurrenceCode();
+        this.router.navigateByUrl('/budgetify/main');
       },
       (error) => {
         this.errorMessage = error.error.message;

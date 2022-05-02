@@ -1,12 +1,23 @@
 <div class="budgetify__main">
   <app-card></app-card>
-  <div *ngIf="false"><p>You don't have any account. Please create one.</p></div>
-  <div class="content-wrapper">
-    <app-search-field class="search-field__container"></app-search-field>
-    <div *ngIf="false">
-      <p>You don't have any transactions. Please create one.</p>
-    </div>
-    <app-transactions *ngIf="cardService.isTransactions"></app-transactions>
+  <div
+    class="content-wrapper"
+    *ngIf="cardService.isTransactions && cardService.isAccounts"
+  >
+
+    <app-transactions></app-transactions>
+  </div>
+  <div
+    *ngIf="!cardService.isAccounts"
+    class="no-data__container no-data__accounts"
+  >
+    <p>You don't have any account. Please create one.</p>
+  </div>
+  <div
+    *ngIf="!cardService.isTransactions && cardService.isAccounts"
+    class="no-data__container"
+  >
+    You don't have any transactions. Please create one.
   </div>
   <div class="side-buttons-container">
     <app-transactions-filter-btn></app-transactions-filter-btn>

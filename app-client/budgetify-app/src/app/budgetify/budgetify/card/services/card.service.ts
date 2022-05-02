@@ -12,11 +12,14 @@ import { SidenavService } from '../../sidenav/services/sidenav.service';
 export class CardService {
   public accountCards: ICard[] = [];
   isTransactions: boolean = false;
+  isAccounts: boolean = false;
   selectedIndex = 0;
-
+  accountSelectedID!:string;
 
   private componentMethodCallSource = new Subject<any>();
+  public componentMethodCallSource1 = new Subject<any>();
   componentMethodCalled$ = this.componentMethodCallSource.asObservable();
+  componentMethodCalled1$ = this.componentMethodCallSource1.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -26,43 +29,58 @@ export class CardService {
   ) {}
 
   getAccounts() {
-    return this.http.get<ICard[]>('http://localhost:3000/accounts').pipe(
-      tap((res: ICard[]) => {
-        this.accountCards = res;
-        this.transactionService.getTransactions(this.accountCards[this.selectedIndex]._id).subscribe(
-          (data) => {
-            this.isTransactions = true;           
-          },
-          (error) => {
-            this.isTransactions = false;
-          }
-        );
-      })
-    );
-  }
-  clickOnCard(ev: any, index: any) {
-    console.log(index)
-    this.transactionService.getTransactions(this.accountCards[index]._id).subscribe(
+    this.http.get<ICard[]>('http://localhost:3000/accounts').subscribe(
       (data) => {
-        this.isTransactions = true;
-        this.selectedIndex = index;
-        
+        this.isAccounts = true;
+        this.accountCards = data;
+        this.accountSelectedID = this.accountCards[this.selectedIndex]._id
+        this.sidenavService.accountId = this.accountSelectedID;
+        this.transactionService
+          .getTransactions(this.accountSelectedID)
+          .subscribe(
+            (data) => {
+              this.isTransactions = true;
+            },
+            (error) => {
+              this.isTransactions = false;
+            }
+          );
       },
       (error) => {
-        this.isTransactions = false;
+        this.accountCards = [];
+        this.isAccounts = false;
       }
-    );
+    );;
   }
-  clickOnMoreDetails(event: any, index: any){  
+
+  clickOnCard(ev: any, index: any) {
+    this.selectedIndex = index;
+    this.accountSelectedID = this.accountCards[index]._id;
+    this.sidenavService.accountId = this.accountSelectedID;
+    this.transactionService
+      .getTransactions(this.accountCards[index]._id)
+      .subscribe(
+        (data) => {
+          this.isTransactions = true;  
+          this.componentMethodCallSource1.next(void 0); 
+        },
+        (error) => {
+          this.isTransactions = false;
+        }
+      );
+       
+  }
+  clickOnMoreDetails(event: any, index: any) {
     event.stopPropagation();
-    this.sidenavService.isAccountInfo=true;
+    this.sidenavService.changeSidenavContent('isAccountInfo');
     this.sidenavService.accountInfoTitle = this.accountCards[index].name;
-    this.sidenavService.accountInfoBalance =  this.accountCards[index].amount;
-    this.sidenavService.accountInfoCurrency = this.accountCards[index].currency;
-    this.sidenavService.accountInfoDescription = this.accountCards[index].description;
+    this.sidenavService.accountInfoBalance = this.accountCards[index].amount;
+    this.sidenavService.accountInfoCurrencySymbol =
+      this.accountCards[index].currency.symbolNative;
+    this.sidenavService.accountInfoCurrencyCode =
+      this.accountCards[index].currency.code;
+    this.sidenavService.accountInfoDescription =
+      this.accountCards[index].description;
     this.componentMethodCallSource.next(void 0);
-   
-
-
   }
 }

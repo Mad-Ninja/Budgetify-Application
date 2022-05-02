@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { BudgetifyComponent } from './budgetify/budgetify.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
@@ -16,7 +17,14 @@ import { SidenavComponent } from './budgetify/sidenav/sidenav.component';
 import { StatisticComponent } from './budgetify/statistic/statistic.component';
 import { CategoriesComponent } from './budgetify/categories/categories.component';
 import { TransactionsFilterBtnComponent } from './budgetify/transactions-filter-btn/transactions-filter-btn.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AutoSizeInputModule} from 'ngx-autosize-input';
+import { CategoriesCardComponent } from './budgetify/categories-card/categories-card.component';
+import { OrderModule } from 'ngx-order-pipe';
+import { SearchTransactionPipe } from '../pipes/search-transaction.pipe';
+import { SearchCategoriesPipe } from '../pipes/search-categories.pipe';
+import { FilterTransactionsPipe } from '../pipes/transaction-filter.pipe';
+import { FilterCategoriesPipe } from '../pipes/categories-filter.pipe';
 
 const routes: Routes = [
   {
@@ -61,13 +69,22 @@ const routes: Routes = [
     StatisticComponent,
     CategoriesComponent,
     TransactionsFilterBtnComponent,
+    CategoriesCardComponent,
+    SearchTransactionPipe,
+    SearchCategoriesPipe,
+    FilterTransactionsPipe,
+    FilterCategoriesPipe
   ],
   imports: [
     CommonModule,
+    ToastNotificationsModule,
     SharedModule,
     RouterModule.forChild(routes),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    AutoSizeInputModule,
+    OrderModule
   ],
 })
 export class BudgetifyModule {}

@@ -10,7 +10,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -25,7 +32,13 @@ import {MatListModule} from '@angular/material/list';
     MatNativeDateModule,
     MatTableModule,
     MatButtonToggleModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatChipsModule,
+    ScrollingModule,
+    MatAutocompleteModule,
+    MatMomentDateModule,
   ],
   exports: [
     MatButtonModule,
@@ -37,7 +50,13 @@ import {MatListModule} from '@angular/material/list';
     MatDatepickerModule,
     MatTableModule,
     MatButtonToggleModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatChipsModule,
+    ScrollingModule,
+    MatAutocompleteModule,
+    MatMomentDateModule,
   ],
   providers: [MatDatepickerModule],
 })

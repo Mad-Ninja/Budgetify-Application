@@ -1,21 +1,16 @@
 import express from 'express';
+import {
+  addCategory, editCategory, getCategory, deleteCategory, getAllCategory,
+} from '../controllers/categories.js';
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  res.send('Category created');
-});
+router.post('/', addCategory);
 
-router.put('/', (req, res) => {
-  res.send('Category edited');
-});
+router.patch('/:id', editCategory);
 
-router.get('/', (req, res) => {
-  res.send('Category readed');
-});
+router.get('/', getCategory);
 
-router.delete('/', (req, res) => {
-  res.send('Category deleted');
-});
+router.delete('/:name/:type', deleteCategory);
 
 export default router;

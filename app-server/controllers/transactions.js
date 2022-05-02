@@ -44,6 +44,8 @@ async function getAllTransactions(req, res) {
     res.status(400).json(err);
   }
 }
+
+
 async function deleteTransaction(req, res) {
   try {
     await Transaction.findByIdAndDelete(req.params.id);

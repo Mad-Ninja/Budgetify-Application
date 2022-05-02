@@ -9,12 +9,13 @@ import { CardService } from './services/card.service';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
+  
   constructor(
     public cardService: CardService,
     private transactionService: TransactionsService
   ) {}
 
   ngOnInit(): void {
-    this.cardService.getAccounts().subscribe(() => {});
+    this.cardService.getAccounts();
   }
 }
