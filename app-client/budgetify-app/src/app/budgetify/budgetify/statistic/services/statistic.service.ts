@@ -19,6 +19,12 @@ interface MonthlyStatistic {
 export class StatisticService {
   CATEGORIES_STATISTIC: CategoriesStatistic[] = [];
 
+
+
+  totalIncome:number;
+  totalExpense:number;
+  totalEconomy:number;
+
   MONTHLY_STATISTIC: MonthlyStatistic[] = [
     {
       month: 'January 2021',
@@ -42,30 +48,36 @@ export class StatisticService {
       percentOfEconomy: 66.6,
     },
   ];
+
+
+  
   constructor() {}
 
   getTotalIncome() {
-    return this.MONTHLY_STATISTIC.map((t) => t.income).reduce(
+   const total = this.MONTHLY_STATISTIC.map((t) => t.income).reduce(
       (acc, value) => acc + value,
       0
     );
+    this.totalIncome = total;
+    return total;
   }
   getTotalExpenses() {
-    return this.MONTHLY_STATISTIC.map((t) => t.expense).reduce(
+    const total = this.MONTHLY_STATISTIC.map((t) => t.expense).reduce(
       (acc, value) => acc + value,
       0
     );
+    this.totalExpense = total;
+    return total;
   }
   getTotalEconomy() {
-    return this.MONTHLY_STATISTIC.map((t) => t.economy).reduce(
+    const total=  this.MONTHLY_STATISTIC.map((t) => t.economy).reduce(
       (acc, value) => acc + value,
       0
-    );
+    ); 
+    this.totalEconomy = total;
+    return total;
   }
   getTotalPercentOfEconomy() {
-    return this.MONTHLY_STATISTIC.map((t) => t.percentOfEconomy).reduce(
-      (acc, value) => acc + value,
-      0
-    );
+    return this.totalEconomy*100/this.totalIncome
   }
 }

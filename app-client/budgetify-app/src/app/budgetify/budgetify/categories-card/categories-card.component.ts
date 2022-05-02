@@ -67,12 +67,90 @@ export class CategoriesCardComponent implements OnInit {
     this.editAction = false;
     this.categoryCardForm.controls['categoryName'].disable();
     const { categoryName } = this.categoryCardForm.value;
+
+    let incomes = this.categoriesService.allUserTransactions.filter(
+      (item) => item.type === 'Income'
+    );
+    let expenses = this.categoriesService.allUserTransactions.filter(
+      (item) => item.type === 'Expenses'
+    );
+
+    let incomesExistCat: ITransaction[] = [];
+    let expensesExistCat: ITransaction[] = [];
+    if (this.category.type === 'income') {
+      incomesExistCat = incomes.filter((income: ITransaction) => {
+        return income.category.includes(this.category.name);
+      });
+    }
+    if (this.category.type === 'expense') {
+      expensesExistCat = expenses.filter((expense: ITransaction) => {
+        return expense.category.includes(this.category.name);
+      });
+    }
+    console.log(incomesExistCat);
+    console.log(expensesExistCat);
+
+    incomesExistCat.forEach((income) => {
+      income.category[
+        income.category.findIndex((item) => item === this.category.name)
+      ] = categoryName;
+
+      console.log(incomesExistCat);
+      console.log(expensesExistCat);
+      const transaction = {
+        _id: income._id,
+        type: income.type,
+        amount: income.amount,
+        category: income.category,
+        title: income.title,
+        dateOfPayment: income.dateOfPayment,
+        payee: income.payee,
+        description: income.description,
+        currency: income.currency,
+        accountId: income.accountId,
+      };
+
+      this.sidenavService.editTransaction(transaction).subscribe(
+        (data) => {},
+        (error) => {}
+      );
+    });
+    expensesExistCat.forEach((expense) => {
+      expense.category[
+        expense.category.findIndex((item) => item === this.category.name)
+      ] = categoryName;
+
+      console.log(incomesExistCat);
+      console.log(expensesExistCat);
+      const transaction = {
+        _id: expense._id,
+        type: expense.type,
+        amount: expense.amount,
+        category: expense.category,
+        title: expense.title,
+        dateOfPayment: expense.dateOfPayment,
+        payee: expense.payee,
+        description: expense.description,
+        currency: expense.currency,
+        accountId: expense.accountId,
+      };
+  
+      this.sidenavService.editTransaction(transaction).subscribe(
+        (data) => {},
+        (error) => {}
+      );
+    });
+    if (expensesExistCat.length > 0 || incomesExistCat.length > 0) {
+      this.sidenavService.showToast(
+        'Such categories in transactions have been changed',
+        'warning'
+      );
+    }
+
     const category = {
       name: categoryName,
       type: this.category.type,
     };
-
-
     this.categoriesService.editCategory(category, this.category.name).subscribe(
       (data) => {
         this.budgetifyService
@@ -81,7 +159,10 @@ export class CategoriesCardComponent implements OnInit {
             (data) => {},
             (error) => {}
           );
-        this.sidenavService.showToast('Category successfully edited', 'success');
+        this.sidenavService.showToast(
+          'Category successfully edited',
+          'success'
+        );
       },
       (error) => {}
     );
@@ -94,9 +175,9 @@ export class CategoriesCardComponent implements OnInit {
   }
 
   onDeleteClick() {
-    console.log(this.categoriesService.allUserTransactions)
-    console.log(this.category.name)
-    console.log(this.category.type)
+    console.log(this.categoriesService.allUserTransactions);
+    console.log(this.category.name);
+    console.log(this.category.type);
     const incomes = this.categoriesService.allUserTransactions.filter(
       (item) => item.type === 'Income'
     );
@@ -104,24 +185,24 @@ export class CategoriesCardComponent implements OnInit {
       (item) => item.type === 'Expenses'
     );
     if (this.category.type === 'income') {
-      for(let i=0;i<incomes.length;i++){
+      for (let i = 0; i < incomes.length; i++) {
         let item = incomes[i].category;
-        console.log(item)
-        if (item.some(string => string === this.category.name)) {
+        if (item.some((string) => string === this.category.name)) {
           this.sidenavService.showToast(
-            'This category can`t be removed because it contains information about your transactions', 'danger'
+            'This category can`t be removed because it contains information about your transactions',
+            'danger'
           );
           return;
         }
-      }      
+      }
     }
     if (this.category.type === 'expense') {
-      for(let i=0;i<expenses.length;i++){
+      for (let i = 0; i < expenses.length; i++) {
         let item = expenses[i].category;
-        console.log(item)
-        if (item.some(string => string === this.category.name)) {
+        if (item.some((string) => string === this.category.name)) {
           this.sidenavService.showToast(
-            'This category can`t be removed because it contains information about your transactions', 'danger'
+            'This category can`t be removed because it contains information about your transactions',
+            'danger'
           );
           return;
         }
@@ -137,7 +218,10 @@ export class CategoriesCardComponent implements OnInit {
             (data) => {},
             (error) => {}
           );
-        this.sidenavService.showToast('Category successfully deleted', 'success');
+        this.sidenavService.showToast(
+          'Category successfully deleted',
+          'success'
+        );
       },
       (error) => {}
     );

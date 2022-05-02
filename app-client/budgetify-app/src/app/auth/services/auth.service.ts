@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IAuth } from 'src/app/models/auth';
 import { CardService } from 'src/app/budgetify/budgetify/card/services/card.service';
 import { TransactionsService } from 'src/app/budgetify/budgetify/main/transactions/services/transactions.service';
+import { CategoriesService } from 'src/app/budgetify/budgetify/categories/services/categories.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private cardService: CardService,
-    private transactionsService: TransactionsService
+    private transactionsService: TransactionsService,
+    private categoriesService: CategoriesService
   ) {}
 
   login(email: string, password: string) {
@@ -51,6 +53,7 @@ export class AuthService {
     this.cardService.accountCards = [];
     this.cardService.selectedIndex = 0;
     this.transactionsService.transactionsCards = [];
+    this.categoriesService.allUserTransactions = [];
   }
 
   private setSession(res: IAuth) {

@@ -1,19 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { StatisticService } from './services/statistic.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CardService } from '../card/services/card.service';
 import { TransactionsService } from '../main/transactions/services/transactions.service';
 import { ITransaction } from 'src/app/models/transactions';
+import { CategoriesService } from '../categories/services/categories.service';
 @Component({
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.scss'],
 })
 export class StatisticComponent implements OnInit {
+  maxDate = Date();
+ 
+  noStatExp: boolean = true;
   buttonValue?: string = 'categories';
   isShowCategories: boolean = true;
   isShowMonthly: boolean = false;
+
   totalExpensesSum: string;
+
+  january: ITransaction[] = [];
+  february: ITransaction[] = [];
+  march: ITransaction[] = [];
+  april: ITransaction[] = [];
+  may: ITransaction[] = [];
+  june: ITransaction[] = [];
+  july: ITransaction[] = [];
+  august: ITransaction[] = [];
+  september: ITransaction[] = [];
+  october: ITransaction[] = [];
+  november: ITransaction[] = [];
+  december: ITransaction[] = [];
+
   transactionsFilteredByRange: ITransaction[] =
     this.transactionsService.transactionsCards;
   range = new FormGroup({
@@ -22,6 +41,7 @@ export class StatisticComponent implements OnInit {
   });
 
   constructor(
+    private categoriesService: CategoriesService,
     public statisticService: StatisticService,
     public cardService: CardService,
     public transactionsService: TransactionsService
@@ -59,6 +79,8 @@ export class StatisticComponent implements OnInit {
   }
 
   selectDateStart() {
+    this.getMonthStat();
+   
     this.transactionsFilteredByRange = [];
     if (this.range.value.start?._d === null) {
       this.transactionsFilteredByRange =
@@ -80,25 +102,30 @@ export class StatisticComponent implements OnInit {
   selectDateEnd() {
     console.log(new Date(this.range.value.start?._d));
     console.log(this.range.value.end?._d);
+  
     this.transactionsFilteredByRange = [];
-    if(this.range.value.start?._d == undefined){
+    if (this.range.value.start?._d == undefined) {
       this.transactionsFilteredByRange =
-      this.transactionsService.transactionsCards;
-    this.getCategoriesStat();
-    return;
+        this.transactionsService.transactionsCards;
+      this.getCategoriesStat();
+      return;
     }
-    if(this.range.value.start?._d != undefined && this.range.value.end?._d == undefined){
+  
+    if (
+      this.range.value.start?._d != undefined &&
+      this.range.value.end?._d == undefined
+    ) {
       this.transactionsFilteredByRange =
-      this.transactionsService.transactionsCards.filter((transaction) => {
-        return (
-          new Date(transaction.dateOfPayment) >=
-          new Date(this.range.value.start?._d)
-        );
-      });
-    this.getCategoriesStat();
-    return;
+        this.transactionsService.transactionsCards.filter((transaction) => {
+          return (
+            new Date(transaction.dateOfPayment) >=
+            new Date(this.range.value.start?._d)
+          );
+        });
+      this.getCategoriesStat();
+      return;
     }
-   
+
     this.transactionsFilteredByRange =
       this.transactionsService.transactionsCards.filter((transaction) => {
         return (
@@ -124,6 +151,11 @@ export class StatisticComponent implements OnInit {
       },
       0
     );
+    if (totalSum === 0) {
+      this.noStatExp = false;
+    } else {
+      this.noStatExp = true;
+    }
     console.log(totalSum);
     this.transactionsFilteredByRange.forEach((transaction: ITransaction) => {
       if (transaction.type === 'Income') {
@@ -151,7 +183,53 @@ export class StatisticComponent implements OnInit {
         .symbolNative;
   }
 
+  getMonthStat() {
+    this.january = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 0;
+    });
+    this.february = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 1;
+    });
+    this.march = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 2;
+    });
+    this.april = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 3;
+    });
+    this.may = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 4;
+    });
+    this.june = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 5;
+    });
+    this.july = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 6;
+    });
+    this.august = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 7;
+    });
+    this.september = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 8;
+    });
+    this.october = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 9;
+    });
+    this.november = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 10;
+    });
+    this.december = this.transactionsFilteredByRange.filter((transaction) => {
+      return new Date(transaction.dateOfPayment).getMonth() === 11;
+    });
+
+    
+  }
+
   ngOnInit(): void {
+    this.cardService.getAccounts();
     this.getCategoriesStat();
+    this.getMonthStat()
+    console.log(this.april)
+    console.log(new Date(this.transactionsFilteredByRange[0].dateOfPayment).getMonth())
+    this.categoriesService.allUserTransactions = [];
   }
 }

@@ -11,7 +11,9 @@ export class CategoriesService {
   filter:string='';
   public categories:ICategory[];
   isCategories: boolean;
+
   allUserTransactions:ITransaction[]=[];
+  
   constructor(private http: HttpClient,) {}
 
 

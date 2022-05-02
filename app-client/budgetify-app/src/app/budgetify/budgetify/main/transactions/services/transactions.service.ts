@@ -46,7 +46,7 @@ export class TransactionsService {
     this.sidenavService.transactionInfoType = this.transactionsCards[indexOfelement].type;
     this.sidenavService.transactionInfoAmount = this.transactionsCards[indexOfelement].amount;
     this.sidenavService.transactionInfoTitle = this.transactionsCards[indexOfelement].title;
-    this.sidenavService.transactionInfoCategory = this.transactionsCards[indexOfelement].category;
+    this.sidenavService.transactionInfoCategory = Array.from(this.transactionsCards[indexOfelement].category);
     this.sidenavService.transactionInfoDate = this.transactionsCards[indexOfelement].dateOfPayment;
     this.sidenavService.transactionInfoPayee = this.transactionsCards[indexOfelement].payee;
     this.sidenavService.transactionInfoDescription = this.transactionsCards[indexOfelement].description;

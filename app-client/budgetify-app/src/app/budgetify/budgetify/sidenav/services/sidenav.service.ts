@@ -10,6 +10,7 @@ import { ICategory } from 'src/app/models/categories';
 import { FormControl } from '@angular/forms';
 import { CardService } from '../../card/services/card.service';
 import { ICard } from 'src/app/models/cards';
+import { ITransaction } from 'src/app/models/transactions';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,7 @@ export class SidenavService {
   transactionInfoTitle!: string;
   transactionInfoType!: string;
   transactionInfoAmount!: number;
-  transactionInfoCategory!: [string];
+  transactionInfoCategory:string[] = [];
   transactionInfoDate!: string;
   transactionInfoPayee!: string;
   transactionInfoDescription!: string;
@@ -182,30 +183,12 @@ export class SidenavService {
   }
 
   editTransaction(
-    title: string,
-    amount: number,
-    date: string,
-    payee: string,
-    description: string,
-    categories: string[],
-    type: string,
-    accountId: string,
-    currencyCode: string
+   transaction:ITransaction
   ){
-    const transaction = {
-      type: type,
-      amount: amount,
-      category: categories,
-      title: title,
-      dateOfPayment: date,
-      payee: payee,
-      description: description,
-      currency: currencyCode,
-      accountId: accountId,
-    };
+    
 
     return this.http.patch(
-      'http://localhost:3000/transactions/' + this.transactionId,
+      'http://localhost:3000/transactions/' + transaction._id,
       transaction
     );
   }

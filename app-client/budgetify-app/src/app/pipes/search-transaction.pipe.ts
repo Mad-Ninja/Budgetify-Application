@@ -9,12 +9,16 @@ export class SearchTransactionPipe implements PipeTransform {
       return array;
     }
     return array.filter((transaction) => {
+      let paYee: boolean = false;
+
       return (
         transaction.title.toLowerCase().includes(search.toLowerCase()) ||
         transaction.category[0].toLowerCase().includes(search.toLowerCase()) ||
         transaction.type.toLowerCase().includes(search.toLowerCase()) ||
-        transaction.payee.toLowerCase().includes(search.toLowerCase()) ||
-        transaction.amount.toString().toLowerCase().includes(search.toLowerCase())
+        transaction.amount
+          .toString()
+          .toLowerCase()
+          .includes(search.toLowerCase())
       );
     });
   }

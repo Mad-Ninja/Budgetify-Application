@@ -37,6 +37,8 @@
       <mat-label>Enter a date range</mat-label>
       <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
         <input
+          matInput
+          [max]="maxDate"
           matStartDate
           placeholder="Start date"
           class="start-date"
@@ -44,6 +46,8 @@
           (dateInput)="selectDateEnd()"
         />
         <input
+          matInput
+          [max]="maxDate"
           matEndDate
           placeholder="End date"
           class="end-date"
@@ -64,7 +68,10 @@
           </mat-form-field>
         </form>
       </div>
-      <div class="statistic-table__categories">
+      <div class="no-stat-exp" *ngIf="!noStatExp">
+        There is no report for the selected date. Choose a different date.
+      </div>
+      <div class="statistic-table__categories" *ngIf="noStatExp">
         <mat-table
           [dataSource]="statisticService.CATEGORIES_STATISTIC"
           class="mat-elevation-z8"
@@ -132,7 +139,7 @@
             {{ expenseValue.expense | currency }}
           </td>
           <td mat-footer-cell *matFooterCellDef>
-            {{ statisticService.getTotalExpenses() | currency }}
+            {{ statisticService.getTotalPercentOfEconomy() | currency }}
           </td>
         </ng-container>
 
@@ -158,6 +165,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumnsMonthly"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsMonthly"></tr>
         <tr mat-footer-row *matFooterRowDef="displayedColumnsMonthly"></tr>
+        <!-- <tr mat-footer-row *matFooterRowDef="['disclaimer']"></tr> -->
       </table>
     </div>
   </div>

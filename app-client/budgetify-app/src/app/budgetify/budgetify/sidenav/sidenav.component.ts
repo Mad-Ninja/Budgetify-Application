@@ -20,12 +20,14 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ICurrency } from 'src/app/models/currency';
+import { ITransaction } from 'src/app/models/transactions';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent implements OnInit {
+  maxDate = new Date();
   buttonCategTypeValueControl = new FormControl('expense');
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -72,7 +74,7 @@ export class SidenavComponent implements OnInit {
     ]),
     amount: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[0-9]*.[0-9]{2}$'),
+      Validators.pattern('[0-9]*.[0-9]{2}$'),
     ]),
     date: new FormControl('', [Validators.required]),
     payee: new FormControl('', [Validators.maxLength(30)]),
@@ -193,10 +195,14 @@ export class SidenavComponent implements OnInit {
     this.categoryCtrl.setValue(null);
   }
   remove(category: string): void {
+    
     this.alreadyExistCategory = false;
     const index = this.categoriess.indexOf(category);
+    
     if (index >= 0) {
+     
       this.categoriess.splice(index, 1);
+
     }
     if (this.categoriess.length === 0) {
       this.invalid = true;
@@ -276,6 +282,7 @@ export class SidenavComponent implements OnInit {
         this.sidenavService.closeSidenav();
         this.sidenavService.showToast('Account succesfuly created', 'success');
         this.cardService.getAccounts();
+        this.cardService.selectedIndex = this.cardService.accountCards.length;
       },
       (error) => {}
     );
@@ -298,7 +305,7 @@ export class SidenavComponent implements OnInit {
       this.categoriesSortList('income');
       this.buttonCategTypeValueControl.setValue('income')
     }
-    this.categoriess = this.sidenavService.transactionInfoCategory;
+    this.categoriess = Array.from(this.sidenavService.transactionInfoCategory);
     this.editTransactionForm.patchValue({
       title: this.sidenavService.transactionInfoTitle,
       amount: this.sidenavService.transactionInfoAmount,
@@ -306,7 +313,9 @@ export class SidenavComponent implements OnInit {
       payee: this.sidenavService.transactionInfoPayee,
       description:this.sidenavService.transactionInfoDescription,
     });
+    this.invalid = false;
     this.sidenavService.changeSidenavContent('isTransactionEdit');
+    
   }
 
   onEditAccount() {
@@ -487,18 +496,21 @@ export class SidenavComponent implements OnInit {
     const currencyCode =
       this.cardService.accountCards[this.cardService.selectedIndex].currency
         .code;
-        console.log(amount)
+    const transaction:ITransaction = {
+          _id: this.sidenavService.transactionId,
+          type: type,
+          amount: amount,
+          category: categories,
+          title: title,
+          dateOfPayment: date,
+          payee: payee,
+          description: description,
+          currency: currencyCode,
+          accountId: accountId,
+        };
     this.sidenavService
       .editTransaction(
-        title,
-        amount,
-        date,
-        payee,
-        description,
-        categories,
-        type,
-        accountId,
-        currencyCode
+        transaction
       )
       .subscribe(
         (data) => {
@@ -538,21 +550,29 @@ export class SidenavComponent implements OnInit {
       );
   }
 
+  changeValidStatusOfTitle(){
+    this.addCategoryForm.get('title')?.setErrors(null)
+  }
+
   categoriesSortList(type: string) {
     if (type === 'expense') {
       this.categoriess = [];
       const array = this.budgetifyService.user.categories
         .filter((obj) => obj.type === 'expense')
         .map((obj) => obj.name);
+        console.log(1)
+        console.log(this.transactionService.transactionsCards[this.transactionService.selectedIndex].category)
       this.categoryCtrl.setValue(null);
       this.allCategoriess = array!;
       this.categoryCtrl.setValue(null);
+    
     }
     if (type === 'income') {
       this.categoriess = [];
       const array = this.budgetifyService.user.categories
         .filter((obj) => obj.type === 'income')
         .map((obj) => obj.name);
+        console.log(2)
       this.categoryCtrl.setValue(null);
       this.allCategoriess = array!;
       this.categoryCtrl.setValue(null);

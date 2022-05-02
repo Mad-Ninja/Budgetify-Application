@@ -6,6 +6,12 @@
   text-align: center;
   margin-top: 10rem;
 }
+.no-stat-exp {
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+  width: 480px;
+}
 .budgetify__statistic {
   display: flex;
   .budgetify__statistic-content {
@@ -77,7 +83,7 @@
       width: 500px;
       .mat-elevation-z8 {
         width: 500px;
-        ng-container{
+        ng-container {
           margin-left: 20px;
         }
       }
