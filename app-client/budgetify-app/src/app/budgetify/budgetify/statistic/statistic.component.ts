@@ -12,7 +12,7 @@ import { CategoriesService } from '../categories/services/categories.service';
 })
 export class StatisticComponent implements OnInit {
   maxDate = Date();
- 
+
   noStatExp: boolean = true;
   buttonValue?: string = 'categories';
   isShowCategories: boolean = true;
@@ -55,11 +55,9 @@ export class StatisticComponent implements OnInit {
     });
   }
 
-  //Cetegories table
+
   displayedColumnsCategories: string[] = ['category', 'amount', 'total'];
   dataSource = this.statisticService.CATEGORIES_STATISTIC;
-
-  //Monthly table
   displayedColumnsMonthly: string[] = [
     'month',
     'income',
@@ -80,7 +78,7 @@ export class StatisticComponent implements OnInit {
 
   selectDateStart() {
     this.getMonthStat();
-   
+
     this.transactionsFilteredByRange = [];
     if (this.range.value.start?._d === null) {
       this.transactionsFilteredByRange =
@@ -100,9 +98,6 @@ export class StatisticComponent implements OnInit {
   }
 
   selectDateEnd() {
-    console.log(new Date(this.range.value.start?._d));
-    console.log(this.range.value.end?._d);
-  
     this.transactionsFilteredByRange = [];
     if (this.range.value.start?._d == undefined) {
       this.transactionsFilteredByRange =
@@ -110,7 +105,7 @@ export class StatisticComponent implements OnInit {
       this.getCategoriesStat();
       return;
     }
-  
+
     if (
       this.range.value.start?._d != undefined &&
       this.range.value.end?._d == undefined
@@ -136,7 +131,6 @@ export class StatisticComponent implements OnInit {
         );
       });
 
-    console.log(this.transactionsFilteredByRange);
     this.getCategoriesStat();
   }
 
@@ -156,7 +150,6 @@ export class StatisticComponent implements OnInit {
     } else {
       this.noStatExp = true;
     }
-    console.log(totalSum);
     this.transactionsFilteredByRange.forEach((transaction: ITransaction) => {
       if (transaction.type === 'Income') {
         return;
@@ -220,16 +213,12 @@ export class StatisticComponent implements OnInit {
     this.december = this.transactionsFilteredByRange.filter((transaction) => {
       return new Date(transaction.dateOfPayment).getMonth() === 11;
     });
-
-    
   }
 
   ngOnInit(): void {
     this.cardService.getAccounts();
     this.getCategoriesStat();
-    this.getMonthStat()
-    console.log(this.april)
-    console.log(new Date(this.transactionsFilteredByRange[0].dateOfPayment).getMonth())
+    this.getMonthStat();
     this.categoriesService.allUserTransactions = [];
   }
 }

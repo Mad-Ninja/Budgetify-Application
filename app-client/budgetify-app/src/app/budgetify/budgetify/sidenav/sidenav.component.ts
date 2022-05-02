@@ -177,7 +177,7 @@ export class SidenavComponent implements OnInit {
     const value = (event.value || '').trim();
     this.invalid = false;
     this.invalid1 = false;
-    // Add our fruit
+
     if (value) {
       if (
         this.categoriess
@@ -190,19 +190,16 @@ export class SidenavComponent implements OnInit {
         this.alreadyExistCategory = false;
       }
     }
-    // Clear the input value
+ 
     event.chipInput!.clear();
     this.categoryCtrl.setValue(null);
   }
   remove(category: string): void {
-    
     this.alreadyExistCategory = false;
     const index = this.categoriess.indexOf(category);
-    
-    if (index >= 0) {
-     
-      this.categoriess.splice(index, 1);
 
+    if (index >= 0) {
+      this.categoriess.splice(index, 1);
     }
     if (this.categoriess.length === 0) {
       this.invalid = true;
@@ -296,14 +293,14 @@ export class SidenavComponent implements OnInit {
     });
     this.sidenavService.changeSidenavContent('isAccountEdit');
   }
-  editTransactionButton(){
+  editTransactionButton() {
     this.invalid1 = false;
-    if(this.sidenavService.transactionInfoType === 'Expenses'){
+    if (this.sidenavService.transactionInfoType === 'Expenses') {
       this.categoriesSortList('expense');
-      this.buttonCategTypeValueControl.setValue('expense') 
-    }else{
+      this.buttonCategTypeValueControl.setValue('expense');
+    } else {
       this.categoriesSortList('income');
-      this.buttonCategTypeValueControl.setValue('income')
+      this.buttonCategTypeValueControl.setValue('income');
     }
     this.categoriess = Array.from(this.sidenavService.transactionInfoCategory);
     this.editTransactionForm.patchValue({
@@ -311,11 +308,10 @@ export class SidenavComponent implements OnInit {
       amount: this.sidenavService.transactionInfoAmount,
       date: this.sidenavService.transactionInfoDate,
       payee: this.sidenavService.transactionInfoPayee,
-      description:this.sidenavService.transactionInfoDescription,
+      description: this.sidenavService.transactionInfoDescription,
     });
     this.invalid = false;
     this.sidenavService.changeSidenavContent('isTransactionEdit');
-    
   }
 
   onEditAccount() {
@@ -383,8 +379,8 @@ export class SidenavComponent implements OnInit {
       .map((item) => {
         return { name: item, type: this.buttonCategTypeValueControl.value };
       });
-      console.log(newCategories)
-    if (newCategories.length>0) {
+
+    if (newCategories.length > 0) {
       this.sidenavService.addCategory(newCategories).subscribe(
         (data) => {
           this.budgetifyService
@@ -393,7 +389,10 @@ export class SidenavComponent implements OnInit {
               (data) => {},
               (error) => {}
             );
-          this.sidenavService.showToast('Category succesfuly created', 'success');
+          this.sidenavService.showToast(
+            'Category succesfuly created',
+            'success'
+          );
         },
         (error) => {}
       );
@@ -401,14 +400,15 @@ export class SidenavComponent implements OnInit {
     const { title, amount, date, payee, description } =
       this.addTransactionForm.value;
     const categories = this.categoriess;
-    const type = this.buttonCategTypeValueControl.value === 'expense'
+    const type =
+      this.buttonCategTypeValueControl.value === 'expense'
         ? 'Expenses'
         : 'Income';
     const accountId = this.cardService.accountSelectedID;
     const currencyCode =
       this.cardService.accountCards[this.cardService.selectedIndex].currency
         .code;
-        console.log(amount)
+
     this.sidenavService
       .addTransaction(
         title,
@@ -424,22 +424,36 @@ export class SidenavComponent implements OnInit {
       .subscribe(
         (data) => {
           this.sidenavService.closeSidenav();
-          this.sidenavService.showToast('Transaction succesfuly created', 'success');
-          if (type === 'Expenses') {
-            this.cardService.accountCards[this.cardService.selectedIndex].amount -= amount;
-            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
-          } else if (type === 'Income') {
-            this.cardService.accountCards[this.cardService.selectedIndex].amount += Number(amount);
-            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
-          }
-          this.sidenavService.editAccount(
-            {
-              amount:  +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2),
-            }
-          ).subscribe(
-            (data) => {},
-            (error) => {}
+          this.sidenavService.showToast(
+            'Transaction succesfuly created',
+            'success'
           );
+          if (type === 'Expenses') {
+            this.cardService.accountCards[
+              this.cardService.selectedIndex
+            ].amount -= amount;
+            +this.cardService.accountCards[
+              this.cardService.selectedIndex
+            ].amount.toFixed(2);
+          } else if (type === 'Income') {
+            this.cardService.accountCards[
+              this.cardService.selectedIndex
+            ].amount += Number(amount);
+            +this.cardService.accountCards[
+              this.cardService.selectedIndex
+            ].amount.toFixed(2);
+          }
+          this.sidenavService
+            .editAccount({
+              amount:
+                +this.cardService.accountCards[
+                  this.cardService.selectedIndex
+                ].amount.toFixed(2),
+            })
+            .subscribe(
+              (data) => {},
+              (error) => {}
+            );
           this.transactionService.getTransactions(accountId).subscribe(
             (data) => {
               this.cardService.isTransactions = true;
@@ -452,7 +466,7 @@ export class SidenavComponent implements OnInit {
         (error) => {}
       );
   }
-  onEditTransaction(){
+  onEditTransaction() {
     const newCategories: ICategory[] = this.categoriess
       .filter((categoryName) => {
         if (
@@ -471,87 +485,127 @@ export class SidenavComponent implements OnInit {
       .map((item) => {
         return { name: item, type: this.buttonCategTypeValueControl.value };
       });
-      if (newCategories.length>0) {
-        this.sidenavService.addCategory(newCategories).subscribe(
-          (data) => {
-            this.budgetifyService
-              .getUserData(localStorage.getItem('id')!)
-              .subscribe(
-                (data) => {},
-                (error) => {}
-              );
-            this.sidenavService.showToast('Category succesfuly created', 'success');
-          },
-          (error) => {}
-        );
-      }
+    if (newCategories.length > 0) {
+      this.sidenavService.addCategory(newCategories).subscribe(
+        (data) => {
+          this.budgetifyService
+            .getUserData(localStorage.getItem('id')!)
+            .subscribe(
+              (data) => {},
+              (error) => {}
+            );
+          this.sidenavService.showToast(
+            'Category succesfuly created',
+            'success'
+          );
+        },
+        (error) => {}
+      );
+    }
 
-      const { title, amount, date, payee, description } =
+    const { title, amount, date, payee, description } =
       this.editTransactionForm.value;
     const categories = this.categoriess;
-    const type = this.buttonCategTypeValueControl.value === 'expense'
+    const type =
+      this.buttonCategTypeValueControl.value === 'expense'
         ? 'Expenses'
         : 'Income';
     const accountId = this.cardService.accountSelectedID;
     const currencyCode =
       this.cardService.accountCards[this.cardService.selectedIndex].currency
         .code;
-    const transaction:ITransaction = {
-          _id: this.sidenavService.transactionId,
-          type: type,
-          amount: amount,
-          category: categories,
-          title: title,
-          dateOfPayment: date,
-          payee: payee,
-          description: description,
-          currency: currencyCode,
-          accountId: accountId,
-        };
-    this.sidenavService
-      .editTransaction(
-        transaction
-      )
-      .subscribe(
-        (data) => {
-          this.sidenavService.closeSidenav();
-          this.sidenavService.showToast('Transaction succesfuly edited', 'success');
-          if (type === 'Expenses' && this.sidenavService.transactionInfoType === 'Expenses') {
-            this.cardService.accountCards[this.cardService.selectedIndex].amount += this.sidenavService.transactionInfoAmount - Number(amount);
-            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
-          } else if (type === 'Income' && this.sidenavService.transactionInfoType === 'Income') {
-            this.cardService.accountCards[this.cardService.selectedIndex].amount = (this.cardService.accountCards[this.cardService.selectedIndex].amount - this.sidenavService.transactionInfoAmount) +  Number(amount) ;
-            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
-          } else if( type === 'Expenses' && this.sidenavService.transactionInfoType === 'Income'){
-            this.cardService.accountCards[this.cardService.selectedIndex].amount =  (this.cardService.accountCards[this.cardService.selectedIndex].amount - this.sidenavService.transactionInfoAmount)  - Number(amount);
-            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
-          } else if( type === 'Income' && this.sidenavService.transactionInfoType === 'Expenses'){
-            this.cardService.accountCards[this.cardService.selectedIndex].amount =  (this.cardService.accountCards[this.cardService.selectedIndex].amount + this.sidenavService.transactionInfoAmount)  + Number(amount);
-            +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
-          }
-          this.sidenavService.editAccount(
-            {
-              amount: this.cardService.accountCards[this.cardService.selectedIndex].amount,
-            }
-          ).subscribe(
+    const transaction: ITransaction = {
+      _id: this.sidenavService.transactionId,
+      type: type,
+      amount: amount,
+      category: categories,
+      title: title,
+      dateOfPayment: date,
+      payee: payee,
+      description: description,
+      currency: currencyCode,
+      accountId: accountId,
+    };
+    this.sidenavService.editTransaction(transaction).subscribe(
+      (data) => {
+        this.sidenavService.closeSidenav();
+        this.sidenavService.showToast(
+          'Transaction succesfuly edited',
+          'success'
+        );
+        if (
+          type === 'Expenses' &&
+          this.sidenavService.transactionInfoType === 'Expenses'
+        ) {
+          this.cardService.accountCards[
+            this.cardService.selectedIndex
+          ].amount +=
+            this.sidenavService.transactionInfoAmount - Number(amount);
+          +this.cardService.accountCards[
+            this.cardService.selectedIndex
+          ].amount.toFixed(2);
+        } else if (
+          type === 'Income' &&
+          this.sidenavService.transactionInfoType === 'Income'
+        ) {
+          this.cardService.accountCards[this.cardService.selectedIndex].amount =
+            this.cardService.accountCards[this.cardService.selectedIndex]
+              .amount -
+            this.sidenavService.transactionInfoAmount +
+            Number(amount);
+          +this.cardService.accountCards[
+            this.cardService.selectedIndex
+          ].amount.toFixed(2);
+        } else if (
+          type === 'Expenses' &&
+          this.sidenavService.transactionInfoType === 'Income'
+        ) {
+          this.cardService.accountCards[this.cardService.selectedIndex].amount =
+            this.cardService.accountCards[this.cardService.selectedIndex]
+              .amount -
+            this.sidenavService.transactionInfoAmount -
+            Number(amount);
+          +this.cardService.accountCards[
+            this.cardService.selectedIndex
+          ].amount.toFixed(2);
+        } else if (
+          type === 'Income' &&
+          this.sidenavService.transactionInfoType === 'Expenses'
+        ) {
+          this.cardService.accountCards[this.cardService.selectedIndex].amount =
+            this.cardService.accountCards[this.cardService.selectedIndex]
+              .amount +
+            this.sidenavService.transactionInfoAmount +
+            Number(amount);
+          +this.cardService.accountCards[
+            this.cardService.selectedIndex
+          ].amount.toFixed(2);
+        }
+        this.sidenavService
+          .editAccount({
+            amount:
+              this.cardService.accountCards[this.cardService.selectedIndex]
+                .amount,
+          })
+          .subscribe(
             (data) => {},
             (error) => {}
           );
-          this.transactionService.getTransactions(accountId).subscribe(
-            (data) => {
-              this.cardService.isTransactions = true;
-            },
-            (error) => {
-              this.cardService.isTransactions = false;
-            }
-          );
-        },
-        (error) => {}
-      );
+        this.transactionService.getTransactions(accountId).subscribe(
+          (data) => {
+            this.cardService.isTransactions = true;
+          },
+          (error) => {
+            this.cardService.isTransactions = false;
+          }
+        );
+      },
+      (error) => {}
+    );
   }
 
-  changeValidStatusOfTitle(){
-    this.addCategoryForm.get('title')?.setErrors(null)
+  changeValidStatusOfTitle() {
+    this.addCategoryForm.get('title')?.setErrors(null);
   }
 
   categoriesSortList(type: string) {
@@ -560,19 +614,15 @@ export class SidenavComponent implements OnInit {
       const array = this.budgetifyService.user.categories
         .filter((obj) => obj.type === 'expense')
         .map((obj) => obj.name);
-        console.log(1)
-        console.log(this.transactionService.transactionsCards[this.transactionService.selectedIndex].category)
       this.categoryCtrl.setValue(null);
       this.allCategoriess = array!;
       this.categoryCtrl.setValue(null);
-    
     }
     if (type === 'income') {
       this.categoriess = [];
       const array = this.budgetifyService.user.categories
         .filter((obj) => obj.type === 'income')
         .map((obj) => obj.name);
-        console.log(2)
       this.categoryCtrl.setValue(null);
       this.allCategoriess = array!;
       this.categoryCtrl.setValue(null);
@@ -604,7 +654,6 @@ export class Popup {
     if (this.sidenavService.popupTitle === 'Delete transaction') {
       this.onDeleteTransaction();
     }
-    
   }
   onDeleteAccount() {
     const accountId = this.cardService.accountSelectedID;
@@ -624,32 +673,43 @@ export class Popup {
     const transactionId = this.sidenavService.transactionId;
     this.sidenavService.deleteTransaction().subscribe((data) => {
       this.sidenavService.closeSidenav();
-      this.sidenavService.showToast('Transaction succesfuly deleted', 'success');
+      this.sidenavService.showToast(
+        'Transaction succesfuly deleted',
+        'success'
+      );
       if (this.sidenavService.transactionInfoType === 'Expenses') {
-        this.cardService.accountCards[this.cardService.selectedIndex].amount += +this.sidenavService.transactionInfoAmount;
-        +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
+        this.cardService.accountCards[this.cardService.selectedIndex].amount +=
+          +this.sidenavService.transactionInfoAmount;
+        +this.cardService.accountCards[
+          this.cardService.selectedIndex
+        ].amount.toFixed(2);
       } else if (this.sidenavService.transactionInfoType === 'Income') {
-        this.cardService.accountCards[this.cardService.selectedIndex].amount -= +this.sidenavService.transactionInfoAmount;
-        +this.cardService.accountCards[this.cardService.selectedIndex].amount.toFixed(2);
+        this.cardService.accountCards[this.cardService.selectedIndex].amount -=
+          +this.sidenavService.transactionInfoAmount;
+        +this.cardService.accountCards[
+          this.cardService.selectedIndex
+        ].amount.toFixed(2);
       }
-      this.sidenavService.editAccount(
-        {
-          amount: +this.cardService.accountCards[this.cardService.selectedIndex].amount,
-        }
-      ).subscribe(
-        (data) => {},
-        (error) => {}
-      );
-      this.transactionService.getTransactions(this.sidenavService.accountId).subscribe(
-        (data) => {
-          this.cardService.isTransactions = true;
-        },
-        (error) => {
-          this.cardService.isTransactions = false;
-        }
-      );
-    }
-    );
+      this.sidenavService
+        .editAccount({
+          amount:
+            +this.cardService.accountCards[this.cardService.selectedIndex]
+              .amount,
+        })
+        .subscribe(
+          (data) => {},
+          (error) => {}
+        );
+      this.transactionService
+        .getTransactions(this.sidenavService.accountId)
+        .subscribe(
+          (data) => {
+            this.cardService.isTransactions = true;
+          },
+          (error) => {
+            this.cardService.isTransactions = false;
+          }
+        );
+    });
   }
-
 }

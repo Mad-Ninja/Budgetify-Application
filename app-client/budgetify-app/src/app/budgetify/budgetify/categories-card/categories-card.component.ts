@@ -52,12 +52,7 @@ export class CategoriesCardComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  // openDialog() {
-  //   this.dialog.open(Popup);
-  // }
-
   onEditClick() {
-    console.log(this.indexOfelement);
     this.editAction = true;
     this.categoryCardForm.controls['categoryName'].enable();
     this.catTitleElemRef.nativeElement.focus();
@@ -87,16 +82,12 @@ export class CategoriesCardComponent implements OnInit {
         return expense.category.includes(this.category.name);
       });
     }
-    console.log(incomesExistCat);
-    console.log(expensesExistCat);
 
     incomesExistCat.forEach((income) => {
       income.category[
         income.category.findIndex((item) => item === this.category.name)
       ] = categoryName;
 
-      console.log(incomesExistCat);
-      console.log(expensesExistCat);
       const transaction = {
         _id: income._id,
         type: income.type,
@@ -120,8 +111,6 @@ export class CategoriesCardComponent implements OnInit {
         expense.category.findIndex((item) => item === this.category.name)
       ] = categoryName;
 
-      console.log(incomesExistCat);
-      console.log(expensesExistCat);
       const transaction = {
         _id: expense._id,
         type: expense.type,
@@ -134,7 +123,7 @@ export class CategoriesCardComponent implements OnInit {
         currency: expense.currency,
         accountId: expense.accountId,
       };
-  
+
       this.sidenavService.editTransaction(transaction).subscribe(
         (data) => {},
         (error) => {}
@@ -175,9 +164,6 @@ export class CategoriesCardComponent implements OnInit {
   }
 
   onDeleteClick() {
-    console.log(this.categoriesService.allUserTransactions);
-    console.log(this.category.name);
-    console.log(this.category.type);
     const incomes = this.categoriesService.allUserTransactions.filter(
       (item) => item.type === 'Income'
     );
@@ -237,14 +223,6 @@ export class CategoriesCardComponent implements OnInit {
     control: FormControl
   ): { [key: string]: boolean } | null {
     const title = control.value;
-    // if (
-    //   title?.toLowerCase() ===
-    //   this.budgetifyService.user.categories[
-    //     this.indexOfelement
-    //   ].name?.toLocaleLowerCase()
-    // ) {
-    //   return null;
-    // }
     const isTitleExist = this.budgetifyService.user.categories?.some(
       (category: ICategory) =>
         category.name?.toLowerCase() === title?.toLowerCase() &&
