@@ -30,11 +30,16 @@ const opts = {
   secretOrKey: process.env.JWT_SECRET,
 };
 
-mongoose.connect(`${process.env.MONGODB_URI}${process.env.DB_NAME}`);
+mongoose.connect(`${process.env.MONGODB_URI}`);
 
 passport.use(new Strategy(opts, jwtCallback));
 
 const auth = passport.authenticate('jwt', { session: false });
+
+app.get('/', (req, res) => {
+  res.end('<h1>BUDGETIFY APP</h1>')
+});
+
 app.use('/users', auth, usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
